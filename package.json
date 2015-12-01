@@ -8,7 +8,7 @@
     "build": "npm run clean && npm run build:webpack && node ./bin/www",
     "start": "node ./bin/www",
     "lint": "eslint client config models routes app.js || true",
-    "test": "npm run lint",
+    "test": "npm run lint"
   },
   "dependencies": {
     "axios": "^0.7.0",

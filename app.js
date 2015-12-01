@@ -16,7 +16,7 @@ var session = require('express-session');
 var app = express();
 
 
-//Webpack config to enable hot reloading
+// Webpack config to enable hot reloading
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
 
@@ -56,7 +56,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

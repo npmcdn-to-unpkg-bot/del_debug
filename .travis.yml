@@ -1,5 +1,11 @@
 language: node_js
 node_js:
   - "5.1"
-before-script:
-  - "npm run lint"
+notifications:
+  email:
+    recipients:
+      - harold@shinsato.com
+      - doug@kosmojo.com
+    on_success: change
+    on_failure: always
+  slack: mtcs01:VX0ooKr6F82wHpzMfTdHshmn

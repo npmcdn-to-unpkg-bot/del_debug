@@ -11,4 +11,3 @@ notifications:
   slack: mtcs01:VX0ooKr6F82wHpzMfTdHshmn
     on_success: always
     on_failure: always
-

@@ -8,6 +8,8 @@ notifications:
       - doug@kosmojo.com
     on_success: change
     on_failure: always
-  slack: mtcs01:VX0ooKr6F82wHpzMfTdHshmn
+  slack: 
+    rooms:
+      - mtcs01:VX0ooKr6F82wHpzMfTdHshmn
     on_success: always
     on_failure: always

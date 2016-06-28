@@ -1,4 +1,5 @@
 require('dotenv').load();
+console.log(process.env)
 var express = require('express');
 var db = require('./models/db');
 var path = require('path');

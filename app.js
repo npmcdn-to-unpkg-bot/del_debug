@@ -128,22 +128,22 @@ var static_path = path.join(__dirname, '/');
 app.use(express.static('public'));
 var config = require('./config/serverConfig.js');
 
-// Start the webserver
-var port = process.env.PORT || 4000;
-var hostname = config.HOSTNAME;
-
-app.use(express.static(static_path))
-  .get('/', function (req, res) {
-      res.render('index', {
-          root: static_path
-      });
-  }).listen(process.env.PORT || 4000, function (err) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-  console.log('The magic happens at ' + ':' + port);
-});
+// // Start the webserver
+// var port = process.env.PORT || 4000;
+// var hostname = config.HOSTNAME;
+//
+// app.use(express.static(static_path))
+//   .get('/', function (req, res) {
+//       res.render('index', {
+//           root: static_path
+//       });
+//   }).listen(process.env.PORT || 4000, function (err) {
+//       if (err) {
+//         console.log(err);
+//         return;
+//       }
+//   console.log('The magic happens at ' + ':' + port);
+// });
 
 
 module.exports = app;

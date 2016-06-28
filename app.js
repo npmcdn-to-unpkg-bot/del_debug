@@ -16,6 +16,17 @@ var session = require('express-session');
 var app = express();
 
 
+var mongoose = require('mongoose');
+var uriUtil = require('mongodb-uri');
+
+var mongodbUri = process.env.MONGOLAB_URI || 'mongodb://localhost/delTest';
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+
+var options = {
+  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+};
+
 // Webpack config to enable hot reloading
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
@@ -114,6 +125,7 @@ app.use(function(err, req, res, next) {
 });
 
 var static_path = path.join(__dirname, '/');
+app.use(express.static('public'));
 var config = require('./config/serverConfig.js');
 
 // Start the webserver

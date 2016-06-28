@@ -9,10 +9,7 @@ var Test = React.createClass({
 
   render: function(){
     return(
-      <div className="jumbotron">
-        <p>Hello MR BOND</p>
-        <img src="http://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png?itok=9dymM8JD"/>
-      </div>
+      <p>poopsing!</p>
     )
   }
 });
@@ -21,7 +18,3 @@ ReactDOM.render(<HelloWorld/>, document.getElementById('HelloWorld'));
 ReactDOM.render(<AnotherExample/>, document.getElementById('AnotherExample'));
 ReactDOM.render(<ES/>, document.getElementById('ES'));
 ReactDOM.render(<Test/>, document.getElementById('test'));
-
-if (module.hot) {
-  module.hot.accept();
-}

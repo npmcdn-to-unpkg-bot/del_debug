@@ -17,28 +17,34 @@ var session = require('express-session');
 var app = express();
 
 
+
 // Webpack config to enable hot reloading
 if (process.env.NODE_ENV === 'production') {
-  console.log('Running in production mode');
+  console.log('****************************** RUNNING IN PRODUCTION MODE ******************************');
 
   app.use('/static', express.static('static'));
 } else {
   // When not in production, enable hot reloading
 
+  console.log('****************************** RUNNING IN DEV MODE ******************************');
   var chokidar = require('chokidar');
   var webpack = require('webpack');
   var webpackConfig = require('./webpack.config.dev');
   var compiler = webpack(webpackConfig);
+
   app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath
   }));
-  app.use(require('webpack-hot-middleware')(compiler));
+
+  app.use(require('webpack-hot-middleware')(compiler, {
+    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+  }));
 
   // Do "hot-reloading" of express stuff on the server
   // Throw away cached modules and re-require next time
   // Ensure there's no important state in there!
-  var watcher = chokidar.watch('./server');
+  var watcher = chokidar.watch('server');
   watcher.on('ready', function() {
     watcher.on('all', function() {
       console.log('Clearing /server/ module cache from server');
@@ -56,13 +62,16 @@ app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 // required for passport
@@ -78,6 +87,7 @@ app.use(session({
 }));
 app.use(flash());
 
+
 require('./config/passport')(passport);
 // routes ======================================================================
 require('./routes/users.js')(app, passport);
@@ -89,6 +99,8 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 // error handlers
 

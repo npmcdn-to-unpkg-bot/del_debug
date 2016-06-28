@@ -15,21 +15,21 @@ module.exports = {
 
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-module: {
+  module: {
         loaders: [
             {
-                test: /\.js$/,
-                loader: 'babel',
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                include: path.join(__dirname, 'client'),
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
-                }
+                loader: 'react-hot!babel',
+                include: path.join(__dirname, 'client')
             }
         ]
-    }
+    },
+    resolve: {
+      extensions: ['', '.js', '.jsx']
+    },
 };

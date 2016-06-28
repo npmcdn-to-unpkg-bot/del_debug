@@ -114,6 +114,7 @@ app.use(function(err, req, res, next) {
 });
 
 var static_path = path.join(__dirname, '/');
+var config = require('./config/serverConfig.js');
 
 // Start the webserver
 var port = process.env.PORT || 4000;

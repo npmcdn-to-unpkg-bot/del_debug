@@ -1,5 +1,6 @@
 require('dotenv').load();
 var express = require('express');
+var db = require('./models/db');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,8 +11,7 @@ var fs = require('fs');
 var morgan = require('morgan');
 var passport = require('passport');
 var flash = require('connect-flash');
-var axios = require('axios');
-var _ = require('lodash');
+
 var session = require('express-session');
 
 var app = express();

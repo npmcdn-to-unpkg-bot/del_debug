@@ -3,11 +3,12 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval',
+  context: path.join(__dirname, 'client'),
   entry: {
     main: ['webpack-hot-middleware/client',
-    './client/Index'],
+    './Index'],
     shark: ['webpack-hot-middleware/client',
-    './client/sharkicorn']
+    './sharkicorn']
   },
     output: {
     path: path.join(__dirname, 'static'),

@@ -45,6 +45,7 @@ var Sharkicorn = React.createClass({
   render: function() {
     return (
       <div>
+        <h3>Tony Says...</h3>
         <h1>Hello MR {this.state.data}</h1>
         <button onClick={this.updateMonster.bind(this, 'VAMPIRE')}>VAMPIRE</button>
         <button onClick={this.updateMonster.bind(this, 'SHARKICORN')}>SHARKICORN</button>
@@ -56,3 +57,7 @@ var Sharkicorn = React.createClass({
 });
 
 ReactDOM.render(<Sharkicorn/>, document.getElementById('shark'));
+
+if (module.hot) {
+  module.hot.accept();
+}

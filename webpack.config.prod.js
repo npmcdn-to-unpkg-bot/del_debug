@@ -3,9 +3,11 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: { 
+  entry: {
     main: [
-    './client/Index']
+    './client/Index'],
+    shark: [
+    './client/sharkicorn']
   },
     output: {
     path: path.join(__dirname, 'static'),

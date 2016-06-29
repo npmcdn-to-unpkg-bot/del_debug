@@ -57,24 +57,28 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+
+// Allow access to the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // view engine setup
-app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-// uncomment after placing your favicon in /public
+// linking the favicon so Heroku isn't angry with us
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+
+// Enable Morgan (logger)
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-// required for passport
+// Passport (session-base login) setup
 app.use(session({
   secret: 'ilovescotchscotchyscotchscotch'
 })); // session secret
@@ -87,10 +91,18 @@ app.use(session({
 }));
 app.use(flash());
 
-
 require('./config/passport')(passport);
+
+
 // routes ======================================================================
 require('./routes/users.js')(app, passport);
+var newRouter = require('./routes/routes.js')
+
+app.use('/api', newRouter);
+
+app.get('/sharkicorn', function(req, res){
+  res.render('sharkicorn.ejs')
+});
 
 
 // catch 404 and forward to error handler
@@ -127,7 +139,6 @@ app.use(function(err, req, res, next) {
 });
 
 var static_path = path.join(__dirname, '/');
-app.use(express.static('public'));
 var config = require('./config/serverConfig.js');
 
 

@@ -1,6 +1,6 @@
 {
-  "name": "oh-xmas-tree",
-  "version": "0.0.0",
+  "name": "explore-your-fit",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "clean": "rimraf static",

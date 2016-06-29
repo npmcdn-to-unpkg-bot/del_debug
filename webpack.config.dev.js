@@ -5,7 +5,9 @@ module.exports = {
   devtool: 'eval',
   entry: {
     main: ['webpack-hot-middleware/client',
-    './client/Index']
+    './client/Index'],
+    shark: ['webpack-hot-middleware/client',
+    './client/sharkicorn']
   },
     output: {
     path: path.join(__dirname, 'static'),

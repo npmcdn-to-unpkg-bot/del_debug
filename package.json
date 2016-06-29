@@ -6,11 +6,12 @@
     "clean": "rimraf static",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack && node ./bin/www",
+    "build-production": "npm run clean && npm run build:webpack",
     "start": "node ./bin/www",
     "lint": "eslint client config models routes server.js",
     "test": "npm run lint",
     "launch": "git pull origin master && brew services start mongodb && npm install && npm run build",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build-production"
   },
   "dependencies": {
     "axios": "^0.7.0",

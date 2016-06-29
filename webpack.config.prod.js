@@ -36,7 +36,7 @@ module: {
                 exclude: /node_modules/,
                 include: path.join(__dirname, 'client'),
                 query: {
-                    cacheDirectory: true,
+                    cacheDirectory: false,
                     presets: ['es2015', 'react']
                 }
             }

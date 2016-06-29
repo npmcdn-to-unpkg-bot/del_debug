@@ -28,7 +28,7 @@ module.exports = {
       }
     })
   ],
-module: {
+  module: {
         loaders: [
             {
                 test: /\.js$/,

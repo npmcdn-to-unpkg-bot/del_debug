@@ -47,6 +47,8 @@ var Sharkicorn = React.createClass({
       <div>
         <h1>Hello MR {this.state.data}</h1>
         <button onClick={this.updateMonster.bind(this, 'VAMPIRE')}>VAMPIRE</button>
+        <button onClick={this.updateMonster.bind(this, 'SHARKICORN')}>SHARKICORN</button>
+        <button onClick={this.updateMonster.bind(this, 'CHAKA KHAN')}>CHAKA KHAN</button>
         <img src="http://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png?itok=9dymM8JD"/>
       </div>
       );

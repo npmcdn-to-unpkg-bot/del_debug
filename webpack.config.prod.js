@@ -3,11 +3,12 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
+  context: path.join(__dirname, './CLIENTSIDE/components'),
   entry: {
     main: [
-    './CLIENTSIDE/components/Index'],
+    './Index'],
     shark: [
-    './CLIENTSIDE/components/sharkicorn']
+    './sharkicorn']
   },
     output: {
     path: path.join(__dirname, './CLIENTSIDE/static'),

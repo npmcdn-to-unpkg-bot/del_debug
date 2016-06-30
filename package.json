@@ -11,7 +11,7 @@
     "lint": "eslint ./CLIENTSIDE/components ./SERVERSIDE/config ./SERVERSIDE/models ./SERVERSIDE/routes server.js",
     "test": "npm run lint",
     "launch": "git pull origin master && brew services start mongodb && npm install && npm run build",
-    "heroku-postbuild": "npm run build-production"
+    "heroku-postbuild": "npm run build-production && ls ./CLIENTSIDE/static"
   },
   "dependencies": {
     "axios": "^0.7.0",

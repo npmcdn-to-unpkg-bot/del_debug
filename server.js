@@ -99,13 +99,16 @@ require('./config/passport')(passport);
 
 // routes ======================================================================
 require('./routes/users.js')(app, passport);
-var newRouter = require('./routes/routes.js')
 
+var newRouter = require('./routes/routes.js')
 app.use('/api', newRouter);
 
 app.get('/sharkicorn', function(req, res){
   res.render('sharkicorn.ejs')
 });
+
+var karaRouter = require('./routes/karaRoutes.js')
+app.use('/templates', karaRouter);
 
 
 // catch 404 and forward to error handler

@@ -7,7 +7,7 @@ var ES = require('./es2015.js');
 var Sharkicorn = require('./sharkicorn.js');
 
 var Test = React.createClass({
- 
+
   render: function(){
     return(
       <div className="jumbotron">

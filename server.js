@@ -21,7 +21,7 @@ var app = express();
 if (process.env.NODE_ENV === 'production') {
   console.log('****************************** RUNNING IN PRODUCTION MODE ******************************');
 
-  app.use(path.join(__dirname, './CLIENTSIDE/static'), express.static('static'));
+  app.use('/static', express.static(path.join(__dirname, './CLIENTSIDE/static')));
 } else {
   // When not in production, enable hot reloading
 

@@ -1,19 +1,31 @@
+
+// UTILITIES THAT NODE REALLY LIKES
 require('dotenv').load();
 var express = require('express');
-var db = require('./SERVERSIDE/models/db');
 var path = require('path');
+var http = require('http');
+var fs = require('fs');
+
+// SETS UP THE EXPRESS / NODE CONNECTION
+var app = express();
+
+// CONNECTS OUR DATABASE
+var db = require('./SERVERSIDE/models/db');
+
+
+
+// NOT TECHNICALLY A NODE DEPENDENCY, BUT IT MAKES HEROKU HAPPIER
 var favicon = require('serve-favicon');
+
+// OPTIONAL PLUGINS FOR LOGGING
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var http = require('http');
-var fs = require('fs');
+
+// OPTIONAL SESSION-BASED AUTH
 var passport = require('passport');
 var flash = require('connect-flash');
-
 var session = require('express-session');
-
-var app = express();
 
 
 
@@ -23,8 +35,8 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use('/static', express.static(path.join(__dirname, './CLIENTSIDE/static')));
 } else {
-  // When not in production, enable hot reloading
 
+  // When not in production, enable hot reloading
   console.log('****************************** RUNNING IN DEV MODE ******************************');
   var chokidar = require('chokidar');
   var webpack = require('webpack');
@@ -81,6 +93,7 @@ app.use(cookieParser());
 
 
 // Passport (session-base login) setup
+// WE DO NOT NEED THIS YET - MAY USE IT FOR REPORTING AUTHENTICATION
 app.use(session({
   secret: 'ilovescotchscotchyscotchscotch'
 })); // session secret
@@ -106,8 +119,8 @@ app.get('/sharkicorn', function(req, res){
   res.render('sharkicorn.ejs')
 });
 
-var karaRouter = require('./SERVERSIDE/routes/karaRoutes.js')
-app.use('/templates', karaRouter);
+var templateRouter = require('./SERVERSIDE/routes/templateRoutes.js')
+app.use('/templates', templateRouter);
 
 
 // catch 404 and forward to error handler
@@ -142,9 +155,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-var static_path = path.join(__dirname, '/');
-var config = require('./SERVERSIDE/config/serverConfig.js');
 
 
 module.exports = app;

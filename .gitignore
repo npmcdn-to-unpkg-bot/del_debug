@@ -1,6 +1,7 @@
 $~
 .DS_Store
 .vagrant
+.env
 /node_modules
 npm-debug.log
 /CLIENTSIDE/static

@@ -1,6 +1,6 @@
 require('dotenv').load();
 var express = require('express');
-var db = require('./models/db');
+var db = require('./SERVERSIDE/models/db');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var fs = require('fs');
-var morgan = require('morgan');
 var passport = require('passport');
 var flash = require('connect-flash');
 
@@ -22,7 +21,7 @@ var app = express();
 if (process.env.NODE_ENV === 'production') {
   console.log('****************************** RUNNING IN PRODUCTION MODE ******************************');
 
-  app.use('/static', express.static('static'));
+  app.use('./SERVERSIDE/static', express.static('static'));
 } else {
   // When not in production, enable hot reloading
 
@@ -62,15 +61,15 @@ if (process.env.NODE_ENV === 'production') {
 
 
 // Allow access to the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './CLIENTSIDE/public')));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './CLIENTSIDE/views'));
 app.set('view engine', 'ejs');
 
 
 // linking the favicon so Heroku isn't angry with us
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, './CLIENTSIDE/public', 'favicon.ico')));
 
 
 // Enable Morgan (logger)
@@ -94,20 +93,20 @@ app.use(session({
 }));
 app.use(flash());
 
-require('./config/passport')(passport);
+require('./SERVERSIDE/config/passport')(passport);
 
 
 // routes ======================================================================
-require('./routes/users.js')(app, passport);
+require('./SERVERSIDE/routes/users.js')(app, passport);
 
-var newRouter = require('./routes/routes.js')
+var newRouter = require('./SERVERSIDE/routes/routes.js')
 app.use('/api', newRouter);
 
 app.get('/sharkicorn', function(req, res){
   res.render('sharkicorn.ejs')
 });
 
-var karaRouter = require('./routes/karaRoutes.js')
+var karaRouter = require('./SERVERSIDE/routes/karaRoutes.js')
 app.use('/templates', karaRouter);
 
 
@@ -145,7 +144,7 @@ app.use(function(err, req, res, next) {
 });
 
 var static_path = path.join(__dirname, '/');
-var config = require('./config/serverConfig.js');
+var config = require('./SERVERSIDE/config/serverConfig.js');
 
 
 module.exports = app;

@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval',
-  context: path.join(__dirname, 'client'),
+  context: path.join(__dirname, './CLIENTSIDE/components'),
   entry: {
     main: ['webpack-hot-middleware/client',
     './Index'],
@@ -11,7 +11,7 @@ module.exports = {
     './sharkicorn']
   },
     output: {
-    path: path.join(__dirname, 'static'),
+    path: path.join(__dirname, './CLIENTSIDE/static'),
     filename: '[name].js',
     publicPath: '/static/',
     plugins: [ new webpack.optimize.CommonsChunkPlugin("init.js") ]
@@ -28,7 +28,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'react-hot!babel',
-                include: path.join(__dirname, 'client')
+                include: path.join(__dirname, './CLIENTSIDE/components')
             }
         ]
     },

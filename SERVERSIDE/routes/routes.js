@@ -21,4 +21,10 @@ router.use(function(req, res, next){
     })
 
 
+    router.route('/survey')
+
+      .get(function(req, res){
+        res.render('survey')
+      })
+
 module.exports = router;

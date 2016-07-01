@@ -6,3 +6,32 @@ body {
 a {
   color: #00B7FF;
 }
+
+.selectorHolder {
+  width: 600px;
+}
+
+.temp {
+  width: 50px;
+height: 50px;
+border-radius: 100%;
+border: #A1EB87 5px solid;
+display: block;
+color: #A1EB87;
+position: relative;
+margin-left: auto;
+margin-right: auto;
+background-color: #fff;
+transform: translateY(-350%);
+}
+
+.temp2 {
+  width: 150px;
+font-size: 18px;
+position: relative;
+text-align: center;
+top: 50%;
+transform: translateY(-50%);
+display: block;
+margin: 0 auto;
+}

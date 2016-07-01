@@ -8,7 +8,9 @@ module.exports = {
     main: ['webpack-hot-middleware/client',
     './Index'],
     shark: ['webpack-hot-middleware/client',
-    './sharkicorn']
+    './sharkicorn'],
+    survey: ['webpack-hot-middleware/client',
+    './survey']
   },
     output: {
     path: path.join(__dirname, './CLIENTSIDE/static'),

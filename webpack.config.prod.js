@@ -8,7 +8,9 @@ module.exports = {
     main: [
     './Index'],
     shark: [
-    './sharkicorn']
+    './sharkicorn'],
+    survey: [
+    './survey']
   },
     output: {
     path: path.join(__dirname, './CLIENTSIDE/static'),

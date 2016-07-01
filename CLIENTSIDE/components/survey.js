@@ -1,11 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var data = {
-  choiceA: 'DRAW CONCLUSIONS FROM DATA',
-  choiceB: 'DRAW CONCLUSIONS FROM CONVERSATIONS'
-}
-
 
 var SurveyOptions = React.createClass({
 
@@ -52,13 +47,19 @@ var SurveyOptions = React.createClass({
       left: '-2.5%'
     }
 
+    var choiceA= this.props.choiceA
+    var formattedChoiceA = choiceA.replace(/(<([^>]+)>)/ig,"").toUpperCase()
+
+    var choiceB= this.props.choiceB
+    var formattedChoiceB = choiceB.replace(/(<([^>]+)>)/ig,"").toUpperCase()
+
     return(
       <div className="selectorHolder">
-        <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} style={styles2}>
-          <p className='temp2'>{this.props.choiceA}</p>
+        <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={this.props.handleNext} style={styles2}>
+          <p className='temp2'>{formattedChoiceA}</p>
         </div>
-        <div id='choiceB' className='optionBox' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} style={styles}>
-          <p className='temp2'>{this.props.choiceB}</p>
+        <div id='choiceB' className='optionBox' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={this.props.handleNext} style={styles}>
+          <p className='temp2'>{formattedChoiceB}</p>
         </div>
         <div id='divider' className='temp'><p style={dividerStyle}>or</p></div>
       </div>
@@ -68,9 +69,47 @@ var SurveyOptions = React.createClass({
 
 var Survey = React.createClass({
 
+  getInitialState: function(){
+    return({
+      gotData: false,
+      data: [],
+      question: 1
+    })
+  },
+
+  componentDidMount: function(){
+
+    var that = this;
+
+    $.ajax({
+       url: "http://deloitteeyf.wpengine.com/wp-json/wp/v2/passionq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC",
+       type: 'GET',
+       dataType: 'json',
+       success: function(res) {
+         that.setState({
+           gotData: true,
+           data: res
+         })
+       }
+    });
+  },
+
+  handleNext: function(){
+    this.setState({
+      question: this.state.question + 1
+    })
+  },
+
   render: function(){
+
+    var questionIndex = this.state.question;
+    var SurveyOptionsCond = this.state.gotData ? <SurveyOptions choiceA={this.state.data[questionIndex].acf.passion_choice_a} choiceB={this.state.data[questionIndex].acf.passion_choice_b} handleNext={this.handleNext}/> : <div>nodata</div>
+
     return(
-      <SurveyOptions choiceA={data.choiceA} choiceB={data.choiceB}/>
+      <div>
+        <div/>
+        {SurveyOptionsCond}
+      </div>
     )
   }
 });

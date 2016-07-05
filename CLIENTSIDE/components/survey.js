@@ -109,7 +109,7 @@ var Survey = React.createClass({
     var that = this;
 
     $.ajax({
-       url: "http://deloitteeyf.wpengine.com/wp-json/wp/v2/passionq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC",
+       url: "https://deloitteeyf.wpengine.com/wp-json/wp/v2/passionq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC",
        type: 'GET',
        dataType: 'json',
        success: function(res) {

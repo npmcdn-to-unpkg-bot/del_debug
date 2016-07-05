@@ -35,3 +35,33 @@ transform: translateY(-50%);
 display: block;
 margin: 0 auto;
 }
+
+.selectorHolder .backBtn {
+  position: absolute;
+  cursor: pointer;
+}
+
+.optionBox {
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  border: #A1EB87 5px solid;
+  display: inline-block;
+  background-color: rgba(32,32,32,.4);
+  color: #A1EB87;
+  cursor: pointer;
+}
+
+.optionBox.right {
+  position: absolute;
+}
+
+#divider p {
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+  font-style: italic;
+  font-size: 20px;
+  left: -2.5%;
+}

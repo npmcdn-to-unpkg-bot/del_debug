@@ -10,17 +10,17 @@ var ScoreDisplay = React.createClass({
       <div className='row'>
         <div className='col-md-6'>
           <h2>CORE AREAS</h2>
-          <div><h4>AUDIT</h4><p>{this.props.score.audit}</p></div>
-          <div><h4>ADVISORY</h4><p>{this.props.score.advisory}</p></div>
-          <div><h4>CONSULTING</h4><p>{this.props.score.consulting}</p></div>
-          <div><h4>TAX</h4><p>{this.props.score.tax}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>ADVISORY</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.advisory}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>CONSULTING</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.consulting}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>TAX</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tax}</p></div>
         </div>
         <div className='col-md-6'>
           <h2>FOCUS AREAS</h2>
-          <div><h4>TECH</h4><p>{this.props.score.tech}</p></div>
-          <div><h4>NON-TECH</h4><p>{this.props.score.nontech}</p></div>
-          <div><h4>FEDERAL</h4><p>{this.props.score.federal}</p></div>
-          <div><h4>PUBLIC</h4><p>{this.props.score.public}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tech}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>NON-TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.nontech}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>FEDERAL</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.federal}</p></div>
+          <div><h4 style={{display: 'inline-block'}}>PUBLIC</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.public}</p></div>
         </div>
       </div>
     )
@@ -59,8 +59,8 @@ var SurveyOptions = React.createClass({
     var formattedChoiceB = choiceB.replace(/(<([^>]+)>)/ig,"").toUpperCase()
 
 
-    var temp = this.props.answer ? <p>TRUE</p> : <p>FALSE</p>
-    var test = this.props.hasBeenAnswered ? <h1>ANSWERED {temp}</h1> : <p>not answered</p>
+    var temp = this.props.answer ? <p>"A"</p> : <p>"B"</p>
+    var test = this.props.hasBeenAnswered ? <h4>YOU ANSWERED <strong style={{display: 'inline-block'}}>{temp}</strong></h4> : <p>not answered</p>
 
     if (this.props.answer != null) {
       if (this.props.answer) {
@@ -83,7 +83,6 @@ var SurveyOptions = React.createClass({
             <p className='temp2'>{formattedChoiceB}</p>
           </div>
           <div id='divider' className='temp'><p>or</p></div>
-          <button onClick={this.props.handleReport}>Report!</button>
           {test}
           <ScoreDisplay score={this.props.score}/>
         </div>

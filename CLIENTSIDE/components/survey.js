@@ -3,6 +3,30 @@ var ReactDOM = require('react-dom');
 var classNames = require( 'classnames' );
 
 
+var ScoreDisplay = React.createClass({
+  render: function(){
+
+    return(
+      <div className='row'>
+        <div className='col-md-6'>
+          <h2>CORE AREAS</h2>
+          <div><h4>AUDIT</h4><p>{this.props.score.audit}</p></div>
+          <div><h4>ADVISORY</h4><p>{this.props.score.advisory}</p></div>
+          <div><h4>CONSULTING</h4><p>{this.props.score.consulting}</p></div>
+          <div><h4>TAX</h4><p>{this.props.score.tax}</p></div>
+        </div>
+        <div className='col-md-6'>
+          <h2>FOCUS AREAS</h2>
+          <div><h4>TECH</h4><p>{this.props.score.tech}</p></div>
+          <div><h4>NON-TECH</h4><p>{this.props.score.nontech}</p></div>
+          <div><h4>FEDERAL</h4><p>{this.props.score.federal}</p></div>
+          <div><h4>PUBLIC</h4><p>{this.props.score.public}</p></div>
+        </div>
+      </div>
+    )
+  }
+});
+
 var SurveyOptions = React.createClass({
 
   handleHoverOver: function(e){
@@ -15,7 +39,6 @@ var SurveyOptions = React.createClass({
 
   checkEnd: function(answer){
     if (this.props.questionIndex < this.props.totalQuestions) {
-      console.log('submitting')
       this.props.handleNext(answer)
     } else {
       console.log('submitting last question')
@@ -47,6 +70,7 @@ var SurveyOptions = React.createClass({
       }
     }
 
+
     return(
       <div>
         <div className="selectorHolder">
@@ -61,6 +85,7 @@ var SurveyOptions = React.createClass({
           <div id='divider' className='temp'><p>or</p></div>
           <button onClick={this.props.handleReport}>Report!</button>
           {test}
+          <ScoreDisplay score={this.props.score}/>
         </div>
       </div>
     )
@@ -75,7 +100,8 @@ var Survey = React.createClass({
       data: [],
       question: 1,
       responses: {},
-      hasBeenAnswered: false
+      hasBeenAnswered: false,
+      score: {}
     })
   },
 
@@ -116,7 +142,6 @@ var Survey = React.createClass({
 
       var index = this.state.question + 1
       if (this.state.responses["question" + index].answer != null){
-          console.log('Question ' + index + ' has been answered already')
           this.setState({
             hasBeenAnswered: true
           })
@@ -128,7 +153,6 @@ var Survey = React.createClass({
       } else {
         var index = this.state.question
         if (this.state.responses["question" + index].answer != null){
-            console.log('Question ' + index + ' has been answered already')
             this.setState({
               hasBeenAnswered: true
             })
@@ -138,6 +162,28 @@ var Survey = React.createClass({
             })
           }
         }
+
+        var submitData = {}
+        for (var i = 1; i < 9; i++){
+            submitData['question' + i] = this.state.responses['question' + i].answer
+        }
+
+        var that = this;
+        $.ajax({
+           url: "/api/survey",
+           type: 'POST',
+           data: submitData,
+           success: function(res) {
+             console.log('success! Got results!')
+             that.setState({
+               score: res
+             })
+           },
+           error: function(xhr, status, err){
+                   console.log('Can\'t do that, Tiger!')
+                   console.error(status, err.toString)
+               }.bind(this)
+        });
     },
 
   handleBack: function(){
@@ -149,7 +195,6 @@ var Survey = React.createClass({
       var index = this.state.question - 1
 
       if (this.state.responses["question" + index].answer != null){
-        console.log('Question ' + index + ' has been answered already')
         this.setState({
           hasBeenAnswered: true
         })
@@ -169,11 +214,9 @@ var Survey = React.createClass({
   render: function(){
 
     var questionIndex = this.state.question;
-    var SurveyOptionsCond = this.state.gotData ? <SurveyOptions choiceA={this.state.data[questionIndex].acf.passion_choice_a} choiceB={this.state.data[questionIndex].acf.passion_choice_b} questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses["question" + questionIndex].answer} handleNext={this.handleNext} handleBack={this.handleBack} handleReport={this.handleReport}/> : <div>nodata</div>
-
+    var SurveyOptionsCond = this.state.gotData ? <SurveyOptions choiceA={this.state.data[questionIndex].acf.passion_choice_a} choiceB={this.state.data[questionIndex].acf.passion_choice_b} questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses["question" + questionIndex].answer} score={this.state.score} handleNext={this.handleNext} handleBack={this.handleBack} handleReport={this.handleReport}/> : <div>nodata</div>;
     return(
       <div>
-        <div/>
         {SurveyOptionsCond}
       </div>
     )

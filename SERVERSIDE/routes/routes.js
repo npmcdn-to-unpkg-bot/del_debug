@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
+var passionReducer = require('../reducers/passionReducer.js');
+
 var monsterVar = 'SHARKICORN';
 
 router.use(function(req, res, next){
@@ -26,5 +28,12 @@ router.use(function(req, res, next){
       .get(function(req, res){
         res.render('survey')
       })
+
+      .post(function(req, res){
+          var data = req.body
+          res.json(passionReducer(data));
+      })
+
+
 
 module.exports = router;

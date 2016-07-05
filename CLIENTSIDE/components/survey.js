@@ -21,8 +21,6 @@ var SurveyOptions = React.createClass({
       console.log('submitting last question')
 
       this.props.handleNext(answer)
-
-      this.forceUpdate();
     }
   },
 

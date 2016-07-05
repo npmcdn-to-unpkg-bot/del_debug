@@ -56,6 +56,11 @@ margin: 0 auto;
   position: absolute;
 }
 
+.selectedAnswer {
+  background-color: rgba(255,255,255,.6) !important;
+  color: #000 !important;
+}
+
 #divider p {
   text-align: center;
   top: 50%;

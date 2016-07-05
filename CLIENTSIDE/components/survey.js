@@ -48,17 +48,20 @@ var SurveyOptions = React.createClass({
     }
 
     return(
-      <div className="selectorHolder">
-        <p className='backBtn' onClick={this.props.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
-        <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(true)}>
-          <p className='temp2'>{formattedChoiceA}</p>
+      <div>
+        <div className="selectorHolder">
+          <h3 className='passionTitle'>Which would you prefer or find most rewarding?</h3>
+          <p className='backBtn' onClick={this.props.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
+          <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(true)}>
+            <p className='temp2'>{formattedChoiceA}</p>
+          </div>
+          <div id='choiceB' className='optionBox right' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(false)}>
+            <p className='temp2'>{formattedChoiceB}</p>
+          </div>
+          <div id='divider' className='temp'><p>or</p></div>
+          <button onClick={this.props.handleReport}>Report!</button>
+          {test}
         </div>
-        <div id='choiceB' className='optionBox right' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(false)}>
-          <p className='temp2'>{formattedChoiceB}</p>
-        </div>
-        <div id='divider' className='temp'><p>or</p></div>
-        <button onClick={this.props.handleReport}>Report!</button>
-        {test}
       </div>
     )
   }

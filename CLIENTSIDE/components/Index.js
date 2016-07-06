@@ -18,9 +18,6 @@ var Test = React.createClass({
   }
 });
 
-ReactDOM.render(<HelloWorld/>, document.getElementById('HelloWorld'));
-ReactDOM.render(<AnotherExample/>, document.getElementById('AnotherExample'));
-ReactDOM.render(<ES/>, document.getElementById('ES'));
 ReactDOM.render(<Test/>, document.getElementById('test'));
 
 

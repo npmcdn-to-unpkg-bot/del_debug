@@ -22,6 +22,11 @@ router.use(function(req, res, next){
           res.json(passionReducer(data));
       })
 
+    router.route('/background')
+      .get(function(req, res){
+        res.render('background')
+      })
+
 
 
 module.exports = router;

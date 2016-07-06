@@ -52,19 +52,62 @@ function convertToScore(url, scope, data){
        });
  };
 
+var DegreeSelector = React.createClass({
 
-function logChange(val) {
-    console.log("Selected: " + val);
-}
+  getInitialState: function(){
 
-var options = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' }
-];
+    // Set up any states unique to THIS component
+    var uniqueStates = {
+      question: 1,
+      hasBeenAnswered: false,
+      score: {}
+    }
 
-var ScoreDisplay = React.createClass({
+    // jQuery merge objects
+    var stateObject = $.extend({}, uniqueStates, getSharedStates())
+    return(stateObject)
+  },
+
+  componentDidMount: function(){
+    var scope = this;
+    var url = "https://deloitteeyf.wpengine.com/wp-json/wp/v2/backgroundq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC";
+
+    getInitialData(url, scope);
+  },
+
   render: function(){
 
+    function logChange(val) {
+        console.log("Selected: " + val);
+    }
+
+    var options = [];
+
+    if (this.state.gotData){
+
+      this.state.data[1].acf.degree_categories.forEach(
+        function(element, index, array){
+          options.push({value: element.degree, label: element.degree})
+        }
+      )
+    }
+
+    return(
+      <div>
+      <Select
+        name="form-field-name"
+        value="one"
+        options={options}
+        onChange={logChange}
+      />
+      </div>
+    )
+  }
+  });
+
+var ScoreDisplay = React.createClass({
+
+  render: function(){
     return(
       <div className='row'>
         <div className='col-md-6'>
@@ -81,16 +124,8 @@ var ScoreDisplay = React.createClass({
           <div><h4 style={{display: 'inline-block'}}>FEDERAL</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.federal}</p></div>
           <div><h4 style={{display: 'inline-block'}}>PUBLIC</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.public}</p></div>
         </div>
-        <Select
-          name="form-field-name"
-          value="one"
-          options={options}
-          onChange={logChange}
-        />
+        <DegreeSelector/>
       </div>
-
-      
-        
     )
   }
 });

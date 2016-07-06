@@ -7,8 +7,6 @@ module.exports = {
   entry: {
     main: [
     './Index'],
-    shark: [
-    './sharkicorn'],
     survey: [
     './survey']
   },

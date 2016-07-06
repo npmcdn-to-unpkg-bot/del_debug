@@ -2,7 +2,11 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+body#destination {
+	background: #000;
+	color:#fff;
+	padding: 50px 0;
+}
 a {
   color: #00B7FF;
 }
@@ -78,4 +82,55 @@ margin: 0 auto;
   font-style: italic;
   font-size: 20px;
   left: -2.5%;
+}
+
+/** Global Elements**/
+.clear {
+	clear:both;
+}
+.panel-container {
+	margin: 0 auto;
+	max-width: 1280px;
+	background: #fff;
+	padding: 30px;
+	color: #000;
+}
+
+header > .panel-container {
+	background: transparent;
+	padding:0;
+}
+#navlegend > .panel-container {
+	background: transparent;
+	color:#fff;
+	padding:10px 0;	
+}
+
+/**Header**/
+header {
+	background: #424548;
+	color:#86bc25;
+	padding: 10px 0;
+}
+header a {
+	color: #fff;
+}
+header a:hover {
+	color: #86bc25;
+	text-decoration: none;
+}
+#leftnav {
+    float: left;
+    width: 50%;
+		line-height: 20px;
+}
+.logo {
+    width: 18%;
+		margin-right: 20px;
+}
+#rightnav {
+    float: right;
+    width: 50%;
+		text-align: right;
+		line-height: 20px;
 }

@@ -10,7 +10,6 @@ body#destination {
 a {
   color: #00B7FF;
 }
-
 .selectorHolder {
   width: 600px;
   display: block;
@@ -18,7 +17,6 @@ a {
   margin-right: auto;
   position: relative;
 }
-
 .temp {
   width: 50px;
 height: 50px;
@@ -32,7 +30,6 @@ margin-right: auto;
 background-color: #fff;
 transform: translateY(-350%);
 }
-
 .temp2 {
   width: 150px;
 font-size: 18px;
@@ -43,12 +40,10 @@ transform: translateY(-50%);
 display: block;
 margin: 0 auto;
 }
-
 .selectorHolder .backBtn {
   position: absolute;
   cursor: pointer;
 }
-
 .optionBox {
   width: 300px;
   height: 300px;
@@ -85,27 +80,28 @@ margin: 0 auto;
 }
 
 /** Global Elements**/
+.center {
+	text-align: center;
+	margin: 10px;
+}
 .clear {
 	clear:both;
 }
 .panel-container {
 	margin: 0 auto;
 	max-width: 1280px;
-	background: #fff;
 	padding: 30px;
-	color: #000;
 }
-
-header > .panel-container {
-	background: transparent;
-	padding:0;
+button {
+	background: #00a3e0;
+	color: #fff;
+	padding: 12px;
+	border:0;
 }
-#navlegend > .panel-container {
-	background: transparent;
-	color:#fff;
-	padding:10px 0;	
+h2 {
+	font-size: 48px;
+	font-weight: bold;
 }
-
 /**Header**/
 header {
 	background: #424548;
@@ -119,10 +115,23 @@ header a:hover {
 	color: #86bc25;
 	text-decoration: none;
 }
+header > .panel-container {
+	background: transparent;
+	padding:0;
+	color:#86bc25;
+}
+#navlegend > .panel-container {
+	background: transparent;
+	color:#fff;
+	padding:10px 0;
+}
 #leftnav {
     float: left;
     width: 50%;
 		line-height: 20px;
+}
+#leftnav a {
+	margin:0 5px;
 }
 .logo {
     width: 18%;
@@ -133,4 +142,17 @@ header a:hover {
     width: 50%;
 		text-align: right;
 		line-height: 20px;
+}
+/**Welcome**/
+#welcome > .panel-container {
+		background: #fff;
+		color: #000;
+}
+/**Meet Our People**/
+#people {
+	background: #ddefe8;
+	color:#000;
+}
+#people h2 {
+	color: #007680;
 }

@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require( 'classnames' );
+var Select = require('react-select');
+
 
 function getSharedStates(){
   return({
@@ -50,6 +52,16 @@ function convertToScore(url, scope, data){
        });
  };
 
+
+function logChange(val) {
+    console.log("Selected: " + val);
+}
+
+var options = [
+    { value: 'one', label: 'One' },
+    { value: 'two', label: 'Two' }
+];
+
 var ScoreDisplay = React.createClass({
   render: function(){
 
@@ -69,7 +81,16 @@ var ScoreDisplay = React.createClass({
           <div><h4 style={{display: 'inline-block'}}>FEDERAL</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.federal}</p></div>
           <div><h4 style={{display: 'inline-block'}}>PUBLIC</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.public}</p></div>
         </div>
+        <Select
+          name="form-field-name"
+          value="one"
+          options={options}
+          onChange={logChange}
+        />
       </div>
+
+      
+        
     )
   }
 });

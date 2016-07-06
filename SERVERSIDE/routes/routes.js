@@ -4,23 +4,11 @@ var router = express.Router();
 
 var passionReducer = require('../reducers/passionReducer.js');
 
-var monsterVar = 'SHARKICORN';
 
 router.use(function(req, res, next){
-  console.log('something is happeneing!');
+  console.log('something is happening!');
   next();
 });
-
-  router.route('/datamonster')
-
-    .get(function(req, res){
-      res.json({monster: monsterVar})
-    })
-
-    .post(function(req, res){
-      monsterVar = req.body.newMonster
-      res.json({monster: monsterVar})
-    })
 
 
     router.route('/survey')

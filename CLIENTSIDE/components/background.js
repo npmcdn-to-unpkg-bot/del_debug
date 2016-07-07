@@ -17,7 +17,7 @@ function getInitialData(url, scope){
   $.ajax({
      url: url,
      type: 'GET',
-     dataType: 'json',
+     dataType: 'jsonp',
      success: function(res) {
 
        console.log(res)

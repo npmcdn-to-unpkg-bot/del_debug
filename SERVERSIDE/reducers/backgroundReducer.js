@@ -14,6 +14,7 @@ module.exports = function passionReducer(backgroundResponses){
       public: 0,
       tech: 0,
       nontech: 0,
+      modules: [],
       message: ''
     }
 
@@ -55,32 +56,35 @@ module.exports = function passionReducer(backgroundResponses){
 
           case "Computer Information Systems":
           case "Information Technology":
-            message = 'selected a "prompted option"..... Compiles to Computer Information Systems'
+            message = 'selected a "prompted option"..... Compiles to Computer Information Systems - triggered Tech focus'
             console.log(message)
             score.message = message;
             score.consulting ++;
             score.advisory ++;
+            score.tech += 50;
             break;
 
           case "Computer Science":
           case "Computer Engineering":
           case "Software Engineering":
           case "Web Development":
-            message = 'selected a "prompted option"..... Compiles to Computer Science'
+            message = 'selected a "prompted option"..... Compiles to Computer Science - triggered Tech focus'
             console.log(message)
             score.message = message;
             score.consulting ++;
             score.advisory ++;
+            score.tech += 50;
             break;
 
           case "Systems Engineering":
           case "Industrial Engineering":
           case "Electrical Engineering":
-            message = 'selected a "prompted option"..... Compiles to Systems Engineering'
+            message = 'selected a "prompted option"..... Compiles to Systems Engineering - triggered Tech focus'
             console.log(message)
             score.message = message;
             score.consulting ++;
             score.advisory ++;
+            score.tech += 50;
             break;
 
 
@@ -103,6 +107,7 @@ module.exports = function passionReducer(backgroundResponses){
             score.message = message;
             score.consulting ++;
             score.advisory ++;
+            score.modules.push('enabledServices');
             break;
 
 
@@ -131,6 +136,12 @@ module.exports = function passionReducer(backgroundResponses){
             break;
 
           case "Management Information Systems":
+            logAnswer();
+            score.audit ++;
+            score.consulting ++;
+            score.advisory ++;
+            break;
+
           case "Science":
           case "Math":
           case "Education":
@@ -138,6 +149,7 @@ module.exports = function passionReducer(backgroundResponses){
             score.audit ++;
             score.consulting ++;
             score.advisory ++;
+            score.modules.push('enabledServices');
             break;
 
           case "Biology":
@@ -149,10 +161,11 @@ module.exports = function passionReducer(backgroundResponses){
             logAnswer();
             score.consulting ++;
             score.advisory ++;
+            score.modules.push('enabledServices')
             break;
 
             }
           }
-
+          
     return score;
 }

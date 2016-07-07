@@ -118,22 +118,36 @@ var ScoreDisplay = React.createClass({
 
     var indicator = this.props.score.message ? this.props.score.message : <p>no response yet</p>
 
+    // SET UP DEBUGGING INDICATOR FOR MODULES
+    var modules;
+    if (this.props.score.modules && this.props.score.modules[0]){
+      modules = this.props.score.modules.map(function(element){return(<li>{element}</li>)})
+    } else {
+      modules = <p>no modules </p>
+    }
+
     return(
       <div className='row'>
         <div className="col-md-12 text-center"><h4>{indicator}</h4></div>
-        <div className='col-md-6'>
+        <div className='col-md-4'>
           <h2>CORE AREAS</h2>
           <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>
           <div><h4 style={{display: 'inline-block'}}>ADVISORY</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.advisory}</p></div>
           <div><h4 style={{display: 'inline-block'}}>CONSULTING</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.consulting}</p></div>
           <div><h4 style={{display: 'inline-block'}}>TAX</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tax}</p></div>
         </div>
-        <div className='col-md-6'>
+        <div className='col-md-4'>
           <h2>FOCUS AREAS</h2>
           <div><h4 style={{display: 'inline-block'}}>TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tech}</p></div>
           <div><h4 style={{display: 'inline-block'}}>NON-TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.nontech}</p></div>
           <div><h4 style={{display: 'inline-block'}}>FEDERAL</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.federal}</p></div>
           <div><h4 style={{display: 'inline-block'}}>PUBLIC</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.public}</p></div>
+        </div>
+        <div className='col-md-4'>
+          <h2>MODULES</h2>
+          <ul>
+            {modules}
+          </ul>
         </div>
       </div>
     )

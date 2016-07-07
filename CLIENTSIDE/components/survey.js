@@ -130,7 +130,30 @@ var ScoreDisplay = React.createClass({
   }
 });
 
+var Progress = React.createClass({
+  render: function() {
+    var totalQuestions = this.props.totalQuestions;
+    var questionIndex = this.props.questionIndex;
+    var percent = (questionIndex/totalQuestions) * 100;
+    var percentString = percent + '%';
+
+    TweenMax.set('#progressPath', {drawSVG:0});
+    TweenMax.fromTo('#progressPath', .25, {drawSVG:"0"}, {drawSVG:'0 ' + percent + '%', ease:Power2.easeIn});
+
+    return(
+      <svg height="100" width="100" >
+        <circle className="st0" cx="50" cy="50" r="25"/>
+        <circle strokeWidth="20" stroke="#A1EB87" className="st1" id="progressPath" cx="50" cy="50" r="15"/>
+        <circle cx="50" cy="50" r="15"/>
+        <text x="40" y="55" fill="#A1EB87">{percentString}</text>
+      </svg>
+    )
+  }
+})
+
+
 var SurveyOptions = React.createClass({
+
 
   handleHoverOver: function(e){
     TweenMax.to($(e.target).closest('.optionBox'), .5, {backgroundColor: 'rgba(255,255,255,.6)', color: '#000'});
@@ -300,7 +323,9 @@ var Survey = React.createClass({
     var SurveyOptionsCond = this.state.gotData ? <SurveyOptions choiceA={this.state.data[questionIndex].acf.passion_choice_a} choiceB={this.state.data[questionIndex].acf.passion_choice_b} questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses["question" + questionIndex].answer} score={this.state.score} handleNext={this.handleNext} handleBack={this.handleBack} handleReport={this.handleReport}/> : <div>nodata</div>;
     return(
       <div>
+        <Progress questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered}/>
         {SurveyOptionsCond}
+        
       </div>
     )
   }

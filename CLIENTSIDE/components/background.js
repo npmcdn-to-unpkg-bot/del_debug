@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require( 'classnames' );
 var Select = require('react-select');
+var Checkbox = require('rc-checkbox');
 
 
 function getSharedStates(){
@@ -303,12 +304,24 @@ var Survey = React.createClass({
 
   render: function(){
 
+    function onChange(e) {
+      console.log( e.target )
+      console.log('checkbox checked:', (e.target.checked));
+    }
+
     var questionIndex = this.state.question;
     var DegreeSelectorCond = this.state.gotData ? <DegreeSelector questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} score={this.state.score} handleNext={this.handleNext} handleBack={this.handleBack}/> : <div>nodata</div>;
     return(
       <div>
         {DegreeSelectorCond}
         <ScoreDisplay score={this.state.score}/>
+        <label>
+          Poop
+          <Checkbox
+            name="my-checkbox"
+            onChange={onChange}
+          />
+        </label>
       </div>
     )
   }

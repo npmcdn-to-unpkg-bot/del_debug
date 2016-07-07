@@ -20,7 +20,7 @@ module.exports = function passionReducer(backgroundResponses){
       if (Boolean(backgroundResponses.question1)){
 
         var message;
-        
+
         switch(backgroundResponses.question1) {
 
           // ******************************************
@@ -110,7 +110,7 @@ module.exports = function passionReducer(backgroundResponses){
           // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINT DISTRIBUTION)
 
           function logAnswer(){
-            message = 'Chose' + backgroundResponses.question1
+            message = 'Chose ' + backgroundResponses.question1
             console.log(message)
             score.message = message;
           }

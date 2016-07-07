@@ -54,21 +54,17 @@ margin: 0 auto;
   color: #A1EB87;
   cursor: pointer;
 }
-
 .optionBox.right {
   position: absolute;
 }
-
 .passionTitle {
   text-align: center;
   margin-bottom: 25px;
 }
-
 .selectedAnswer {
   background-color: rgba(255,255,255,.6) !important;
   color: #000 !important;
 }
-
 #divider p {
   text-align: center;
   top: 50%;
@@ -78,7 +74,6 @@ margin: 0 auto;
   font-size: 20px;
   left: -2.5%;
 }
-
 /** Global Elements**/
 .center {
 	text-align: center;
@@ -147,17 +142,17 @@ header > .panel-container {
 #welcome  {
 		background: #f3f3f4;
 		color: #000;
-		-moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
-		-webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
-		 box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
+		-moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
+		-webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
+		 box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 }
 /**Meet Our People**/
 #people {
 	background: #ddefe8;
 	color:#000;
-    -moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
-     box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
+     box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 }
 #people h2 {
 	color: #007680;
@@ -165,4 +160,17 @@ header > .panel-container {
 /**Professional Development**/
 #prodev {
 	background: #f3f3f4;
+	color:#000;
+}
+
+/** Career Snapshot **/
+#ccnapshot {
+	background: #000;
+	color:#fff;
+}
+
+/** Leading Thoughts **/
+#lthoughts {
+	background: #ddefe8;
+	color:#000;
 }

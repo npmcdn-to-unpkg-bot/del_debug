@@ -54,6 +54,63 @@ function convertToScore(url, scope, data){
        });
  };
 
+var EducationSelector = React.createClass({
+
+  getInitialState: function(){
+    // Set up any states unique to THIS component
+    var uniqueStates = {
+      question: 1,
+      hasBeenAnswered: false,
+      score: {},
+      fieldValue: ''
+    }
+
+    // jQuery merge objects
+    var stateObject = $.extend({}, uniqueStates, getSharedStates())
+    return(stateObject)
+  },
+
+  componentDidMount: function(){
+    var scope = this;
+    var url = "https://deloitteeyf.wpengine.com/wp-json/wp/v2/backgroundq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC";
+
+    getInitialData(url, scope);
+  },
+
+  render: function(){
+
+    var that = this;
+    function logChange(answer) {
+        that.setState({
+          fieldValue: answer.value
+        });
+        that.props.handleNext(answer.value)
+    };
+
+    var options = [];
+
+    if (this.state.gotData){
+      this.state.data[2].acf.background_categories.forEach(
+        function(element, index, array){
+          options.push({value: element.category_name, label: element.category_name})
+        }
+      )
+    }
+
+    return(
+      <div>
+      <Select
+        name="education-selector"
+        value={this.state.fieldValue}
+        options={options}
+        onChange={logChange}
+      />
+      </div>
+    )
+  }
+
+});
+
 var DegreeSelector = React.createClass({
 
   getInitialState: function(){
@@ -91,10 +148,9 @@ var DegreeSelector = React.createClass({
     var options = [];
 
     if (this.state.gotData){
-
-      this.state.data[1].acf.degree_categories.forEach(
+      this.state.data[1].acf.background_categories.forEach(
         function(element, index, array){
-          options.push({value: element.degree, label: element.degree})
+          options.push({value: element.category_name, label: element.category_name})
         }
       )
     }
@@ -324,10 +380,14 @@ var Survey = React.createClass({
     }
 
     var questionIndex = this.state.question;
+
+    //Temporarily disabled
     var DegreeSelectorCond = this.state.gotData ? <DegreeSelector questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} score={this.state.score} handleNext={this.handleNext} handleBack={this.handleBack}/> : <div>nodata</div>;
+
     return(
       <div>
-        {DegreeSelectorCond}
+
+        <EducationSelector/>
         <ScoreDisplay score={this.state.score}/>
         <label>
           Test

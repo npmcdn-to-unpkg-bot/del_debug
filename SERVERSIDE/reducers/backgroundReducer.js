@@ -13,10 +13,14 @@ module.exports = function passionReducer(backgroundResponses){
       federal: 0,
       public: 0,
       tech: 0,
-      nontech: 0
+      nontech: 0,
+      message: ''
     }
 
       if (Boolean(backgroundResponses.question1)){
+
+        var message;
+        
         switch(backgroundResponses.question1) {
 
           // ******************************************
@@ -25,8 +29,9 @@ module.exports = function passionReducer(backgroundResponses){
           case "Accounting":
           case "Taxation":
           case "Forensic Accounting":
-            console.log('selected a "prompted option" .....')
-            console.log('Chose Accounting')
+            message = 'selected a "prompted option"..... Compiles to Accounting'
+            console.log(message)
+            score.message = message;
             score.audit ++;
             score.tax ++;
             score.advisory ++;
@@ -39,8 +44,9 @@ module.exports = function passionReducer(backgroundResponses){
           case "International Business":
           case "Supply Chain":
           case "Risk Management":
-            console.log('selected a "prompted option" .....')
-              console.log('Business Administration')
+              message = 'selected a "prompted option"..... Compiles to Business Administration'
+              console.log(message)
+              score.message = message;
               score.audit ++;
               score.tax ++;
               score.consulting ++;
@@ -49,8 +55,9 @@ module.exports = function passionReducer(backgroundResponses){
 
           case "Computer Information Systems":
           case "Information Technology":
-            console.log('selected a "prompted option" .....')
-            console.log('Chose Computer Information Systems')
+            message = 'selected a "prompted option"..... Compiles to Computer Information Systems'
+            console.log(message)
+            score.message = message;
             score.consulting ++;
             score.advisory ++;
             break;
@@ -59,8 +66,9 @@ module.exports = function passionReducer(backgroundResponses){
           case "Computer Engineering":
           case "Software Engineering":
           case "Web Development":
-            console.log('selected a "prompted option" .....')
-            console.log('Chose Computer Science')
+            message = 'selected a "prompted option"..... Compiles to Computer Science'
+            console.log(message)
+            score.message = message;
             score.consulting ++;
             score.advisory ++;
             break;
@@ -68,8 +76,9 @@ module.exports = function passionReducer(backgroundResponses){
           case "Systems Engineering":
           case "Industrial Engineering":
           case "Electrical Engineering":
-            console.log('selected a "prompted option" .....')
-            console.log('Chose Systems Engineering')
+            message = 'selected a "prompted option"..... Compiles to Systems Engineering'
+            console.log(message)
+            score.message = message;
             score.consulting ++;
             score.advisory ++;
             break;
@@ -77,8 +86,9 @@ module.exports = function passionReducer(backgroundResponses){
 
           case "Human Resources Management":
           case "Human Resources":
-            console.log('selected a "prompted option" .....')
-            console.log('Chose Human Resources Management')
+            message = 'selected a "prompted option"..... Compiles to Human Resources Management'
+            console.log(message)
+            score.message = message;
             score.tax ++;
             score.consulting ++;
             break;
@@ -88,8 +98,9 @@ module.exports = function passionReducer(backgroundResponses){
           case "Digital Marketing":
           case "Media Arts":
           case "Graphic Design":
-            console.log('selected a "prompted option" .....')
-            console.log('Chose Marketing or Communications')
+            message = 'selected a "prompted option"..... Compiles to Marketing or Communications'
+            console.log(message)
+            score.message = message;
             score.consulting ++;
             score.advisory ++;
             break;
@@ -98,9 +109,15 @@ module.exports = function passionReducer(backgroundResponses){
           // **********************************************************
           // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINT DISTRIBUTION)
 
+          function logAnswer(){
+            message = 'Chose' + backgroundResponses.question1
+            console.log(message)
+            score.message = message;
+          }
+
           case "Economics":
           case "Finance":
-            console.log('Chose' + backgroundResponses.question1)
+            logAnswer();
             score.audit ++;
             score.tax ++;
             score.consulting ++;
@@ -108,7 +125,7 @@ module.exports = function passionReducer(backgroundResponses){
             break;
 
           case "Law":
-            console.log('Chose Law')
+            logAnswer();
             score.tax ++;
             score.advisory ++;
             break;
@@ -117,7 +134,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Science":
           case "Math":
           case "Education":
-            console.log('Chose' + backgroundResponses.question1)
+            logAnswer();
             score.audit ++;
             score.consulting ++;
             score.advisory ++;
@@ -129,7 +146,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "English":
           case "Psychology":
           case "Social Science":
-            console.log('Chose' + backgroundResponses.question1)
+            logAnswer();
             score.consulting ++;
             score.advisory ++;
             break;

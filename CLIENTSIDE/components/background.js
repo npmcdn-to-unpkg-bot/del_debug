@@ -41,7 +41,7 @@ function convertToScore(url, scope, data){
       type: 'POST',
       data: data,
       success: function(res) {
-        console.log('success! Got results!')
+        console.log(res.message)
         scope.setState({
           score: res
         })
@@ -114,8 +114,12 @@ var DegreeSelector = React.createClass({
 var ScoreDisplay = React.createClass({
 
   render: function(){
+
+    var indicator = this.props.score.message ? this.props.score.message : <p>no response yet</p>
+
     return(
       <div className='row'>
+        <div className="col-md-12 text-center"><h4>{indicator}</h4></div>
         <div className='col-md-6'>
           <h2>CORE AREAS</h2>
           <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>

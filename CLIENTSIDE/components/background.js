@@ -330,7 +330,7 @@ var Survey = React.createClass({
         {DegreeSelectorCond}
         <ScoreDisplay score={this.state.score}/>
         <label>
-          Poop
+          Test
           <Checkbox
             name="my-checkbox"
             onChange={onChange}

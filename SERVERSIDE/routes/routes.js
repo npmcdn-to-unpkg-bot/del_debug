@@ -8,15 +8,8 @@ var backgroundReducer = require('../reducers/backgroundReducer.js');
 
 router.use(function(req, res, next){
 
-  var allowedOrigins = ['http://localhost:3333', 'https://explore-your-fit.herokuapp.com'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-       res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
-  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS, POST');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
   console.log('something is happening!');
   next();

@@ -148,6 +148,14 @@ header > .panel-container {
 		-webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 		 box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 }
+.introleft {
+	width: 50%;
+	float:left;
+}
+.introright {
+	width: 50%;
+	float: right;
+}
 /**Meet Our People**/
 #people {
 	background: #ddefe8;

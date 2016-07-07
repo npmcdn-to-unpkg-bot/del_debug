@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 var passionReducer = require('../reducers/passionReducer.js');
+var backgroundReducer = require('../reducers/backgroundReducer.js');
 
 
 router.use(function(req, res, next){
@@ -25,6 +26,11 @@ router.use(function(req, res, next){
     router.route('/background')
       .get(function(req, res){
         res.render('background')
+      })
+
+      .post(function(req, res){
+          var data = req.body
+          res.json(backgroundReducer(data));
       })
 
 

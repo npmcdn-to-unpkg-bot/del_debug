@@ -19,8 +19,9 @@ module.exports = function passionReducer(backgroundResponses){
       if (Boolean(backgroundResponses.question1)){
         switch(backgroundResponses.question1) {
 
-
+          // ******************************************
           // HANDLE SELECTIONS WITH "PROMPTED OPTIONS"
+
           case "Accounting":
           case "Taxation":
           case "Forensic Accounting":
@@ -94,7 +95,9 @@ module.exports = function passionReducer(backgroundResponses){
             break;
 
 
-          // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINTS)
+          // **********************************************************
+          // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINT DISTRIBUTION)
+
           case "Economics":
           case "Finance":
             console.log('Chose' + backgroundResponses.question1)

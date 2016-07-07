@@ -144,15 +144,25 @@ header > .panel-container {
 		line-height: 20px;
 }
 /**Welcome**/
-#welcome > .panel-container {
-		background: #fff;
+#welcome  {
+		background: #f3f3f4;
 		color: #000;
+		-moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
+		-webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
+		 box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
 }
 /**Meet Our People**/
 #people {
 	background: #ddefe8;
 	color:#000;
+    -moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
+     box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.5);
 }
 #people h2 {
 	color: #007680;
+}
+/**Professional Development**/
+#prodev {
+	background: #f3f3f4;
 }

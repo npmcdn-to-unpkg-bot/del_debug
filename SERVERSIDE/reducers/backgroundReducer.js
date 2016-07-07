@@ -19,6 +19,8 @@ module.exports = function passionReducer(backgroundResponses){
       if (Boolean(backgroundResponses.question1)){
         switch(backgroundResponses.question1) {
 
+
+          // HANDLE SELECTIONS WITH "PROMPTED OPTIONS"
           case "Accounting":
           case "Taxation":
           case "Forensic Accounting":
@@ -28,7 +30,6 @@ module.exports = function passionReducer(backgroundResponses){
             score.tax ++;
             score.advisory ++;
             break;
-
 
           case "Business Administration":
           case "Management":
@@ -63,18 +64,6 @@ module.exports = function passionReducer(backgroundResponses){
             score.advisory ++;
             break;
 
-
-          case "Economics":
-          case "Finance":
-            console.log('Chose' + backgroundResponses.question1)
-            score.audit ++;
-            score.tax ++;
-            score.consulting ++;
-            score.advisory ++;
-            break;
-
-
-
           case "Systems Engineering":
           case "Industrial Engineering":
           case "Electrical Engineering":
@@ -93,20 +82,6 @@ module.exports = function passionReducer(backgroundResponses){
             score.consulting ++;
             break;
 
-
-          case "Law":
-            console.log('Chose Law')
-            score.tax ++;
-            score.advisory ++;
-            break;
-
-          case "Management Information Systems":
-            console.log('Chose Management Information Systems')
-            score.audit ++;
-            score.consulting ++;
-            score.advisory ++;
-            break;
-
           case "Marketing or Communications":
           case "Internet Marketing":
           case "Digital Marketing":
@@ -118,13 +93,25 @@ module.exports = function passionReducer(backgroundResponses){
             score.advisory ++;
             break;
 
-          case "Science":
-            console.log('Chose Science')
-            score.consulting ++;
+
+          // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINTS)
+          case "Economics":
+          case "Finance":
+            console.log('Chose' + backgroundResponses.question1)
             score.audit ++;
+            score.tax ++;
+            score.consulting ++;
             score.advisory ++;
             break;
 
+          case "Law":
+            console.log('Chose Law')
+            score.tax ++;
+            score.advisory ++;
+            break;
+
+          case "Management Information Systems":
+          case "Science":
           case "Math":
           case "Education":
             console.log('Chose' + backgroundResponses.question1)
@@ -143,11 +130,6 @@ module.exports = function passionReducer(backgroundResponses){
             score.consulting ++;
             score.advisory ++;
             break;
-
-
-
-
-
 
             }
           }

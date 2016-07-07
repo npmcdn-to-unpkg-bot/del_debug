@@ -149,8 +149,6 @@ var Progress = React.createClass({
       </svg>
     )
   }
- 
-
 })
 
 

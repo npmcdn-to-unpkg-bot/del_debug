@@ -23,75 +23,75 @@ module.exports = function backgroundReducer(backgroundResponses){
 
       if (Boolean(backgroundResponses.question1)){
 
-        switch(backgroundResponses.question1) {
+        switch (backgroundResponses.question1) {
 
           // ******************************************
-          // HANDLE SELECTIONS WITH "PROMPTED OPTIONS"
+          // HANDLE SELECTIONS WITH 'PROMPTED OPTIONS'
 
-          case "Accounting":
-          case "Taxation":
-          case "Forensic Accounting":
-            score.message1 = 'selected a "prompted option"..... Compiles to Accounting';
+          case 'Accounting':
+          case 'Taxation':
+          case 'Forensic Accounting':
+            score.message1 = 'selected a \'prompted option\'..... Compiles to Accounting';
             score.audit ++;
             score.tax ++;
             score.advisory ++;
             break;
 
-          case "Business Administration":
-          case "Management":
-          case "International Studies":
-          case "Entrepreneurship":
-          case "International Business":
-          case "Supply Chain":
-          case "Risk Management":
-              score.message1 = 'selected a "prompted option"..... Compiles to Business Administration';
+          case 'Business Administration':
+          case 'Management':
+          case 'International Studies':
+          case 'Entrepreneurship':
+          case 'International Business':
+          case 'Supply Chain':
+          case 'Risk Management':
+              score.message1 = 'selected a \'prompted option\'..... Compiles to Business Administration';
               score.audit ++;
               score.tax ++;
               score.consulting ++;
               score.advisory ++;
               break;
 
-          case "Computer Information Systems":
-          case "Information Technology":
-            score.message1 = 'selected a "prompted option"..... Compiles to Computer Information Systems - triggered Tech focus';
+          case 'Computer Information Systems':
+          case 'Information Technology':
+            score.message1 = 'selected a \'prompted option\'..... Compiles to Computer Information Systems - triggered Tech focus';
             score.consulting ++;
             score.advisory ++;
             score.tech += 50;
             break;
 
-          case "Computer Science":
-          case "Computer Engineering":
-          case "Software Engineering":
-          case "Web Development":
-            score.message1 = 'selected a "prompted option"..... Compiles to Computer Science - triggered Tech focus';
+          case 'Computer Science':
+          case 'Computer Engineering':
+          case 'Software Engineering':
+          case 'Web Development':
+            score.message1 = 'selected a \'prompted option\'..... Compiles to Computer Science - triggered Tech focus';
             score.consulting ++;
             score.advisory ++;
             score.tech += 50;
             break;
 
-          case "Systems Engineering":
-          case "Industrial Engineering":
-          case "Electrical Engineering":
-            score.message1 = 'selected a "prompted option"..... Compiles to Systems Engineering - triggered Tech focus';
+          case 'Systems Engineering':
+          case 'Industrial Engineering':
+          case 'Electrical Engineering':
+            score.message1 = 'selected a \'prompted option\'..... Compiles to Systems Engineering - triggered Tech focus';
             score.consulting ++;
             score.advisory ++;
             score.tech += 50;
             break;
 
 
-          case "Human Resources Management":
-          case "Human Resources":
-            score.message1 = 'selected a "prompted option"..... Compiles to Human Resources Management';
+          case 'Human Resources Management':
+          case 'Human Resources':
+            score.message1 = 'selected a \'prompted option\'..... Compiles to Human Resources Management';
             score.tax ++;
             score.consulting ++;
             break;
 
-          case "Marketing or Communications":
-          case "Internet Marketing":
-          case "Digital Marketing":
-          case "Media Arts":
-          case "Graphic Design":
-            score.message1 = 'selected a "prompted option"..... Compiles to Marketing or Communications';
+          case 'Marketing or Communications':
+          case 'Internet Marketing':
+          case 'Digital Marketing':
+          case 'Media Arts':
+          case 'Graphic Design':
+            score.message1 = 'selected a \'prompted option\'..... Compiles to Marketing or Communications';
             score.consulting ++;
             score.advisory ++;
             score.modules.push('enabledServices');
@@ -107,8 +107,8 @@ module.exports = function backgroundReducer(backgroundResponses){
             score.message1 = message;
           }
 
-          case "Economics":
-          case "Finance":
+          case 'Economics':
+          case 'Finance':
             logAnswer1();
             score.audit ++;
             score.tax ++;
@@ -116,22 +116,22 @@ module.exports = function backgroundReducer(backgroundResponses){
             score.advisory ++;
             break;
 
-          case "Law":
+          case 'Law':
             logAnswer1();
             score.tax ++;
             score.advisory ++;
             break;
 
-          case "Management Information Systems":
+          case 'Management Information Systems':
             logAnswer1();
             score.audit ++;
             score.consulting ++;
             score.advisory ++;
             break;
 
-          case "Science":
-          case "Math":
-          case "Education":
+          case 'Science':
+          case 'Math':
+          case 'Education':
             logAnswer1();
             score.audit ++;
             score.consulting ++;
@@ -139,12 +139,12 @@ module.exports = function backgroundReducer(backgroundResponses){
             score.modules.push('enabledServices');
             break;
 
-          case "Biology":
-          case "Physics":
-          case "Chemistry":
-          case "English":
-          case "Psychology":
-          case "Social Science":
+          case 'Biology':
+          case 'Physics':
+          case 'Chemistry':
+          case 'English':
+          case 'Psychology':
+          case 'Social Science':
             logAnswer1();
             score.consulting ++;
             score.advisory ++;
@@ -164,26 +164,26 @@ module.exports = function backgroundReducer(backgroundResponses){
           score.message2 = message;
         }
 
-        switch(backgroundResponses.question2) {
+        switch (backgroundResponses.question2) {
 
-          case "I\'m a freshman":
-          case "I\'m a sophomore":
-          case "I\'m a junior":
+          case 'I\'m a freshman':
+          case 'I\'m a sophomore':
+          case 'I\'m a junior':
             logAnswer2();
             score.modules.push('FSJ');
             break;
 
-          case "I\'m a senior":
+          case 'I\'m a senior':
             logAnswer2();
             score.modules.push('Senior');
             break;
 
-          case "I\'m a graduate student":
+          case 'I\'m a graduate student':
             logAnswer2();
             score.modules.push('advancedDegrees');
             break;
 
-          case "I\'ve completed my education":
+          case 'I\'ve completed my education':
             logAnswer2();
             score.modules.push('completedSchool');
             break;
@@ -205,81 +205,85 @@ module.exports = function backgroundReducer(backgroundResponses){
           score.message3 = message;
         }
 
-          if (backgroundResponses.question3.includes("Certified Public Accountant")){
+          if (backgroundResponses.question3.includes('Certified Public Accountant')){
             console.log('ENTERED the CPA hook')
             logAnswer3();
             score.audit ++;
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.includes("Juris Doctor or Master of Laws")){
+          if (backgroundResponses.question3.includes('Juris Doctor or Master of Laws')){
             logAnswer3();
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.includes( "Master of Accounting")){
+          if (backgroundResponses.question3.includes( 'Master of Accounting')){
             logAnswer3();
             score.tax ++;
             score.audit ++;
             score.advisory ++;
           }
 
-          if (backgroundResponses.question3.includes( "Master of Taxation")){
+          if (backgroundResponses.question3.includes( 'Master of Taxation')){
             logAnswer3();
             score.tax ++;
             score.audit ++;
           }
 
-          if (backgroundResponses.question3.includes( "Master of Business Administration")){
+          if (backgroundResponses.question3.includes( 'Master of Business Administration')){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedBusinessDegree');
           }
 
-          if (backgroundResponses.question3.includes( "Master of Health Administration")){
+          if (backgroundResponses.question3.includes( 'Master of Health Administration')){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedHealthDegree');
           }
 
-          if (backgroundResponses.question3.includes( "Master of Public Administration or Policy")){
+          if (backgroundResponses.question3.includes( 'Master of Public Administration or Policy')){
             logAnswer3();
             score.federal ++;
             score.modules.push('advancedPolicyDegree');
           }
 
-          if (backgroundResponses.question3.includes( "Technology field concentration, second degree or master\’s")){
+          if (backgroundResponses.question3.includes( 'Technology field concentration, second degree or master\’s')){
             logAnswer3();
             score.tech ++;
             score.modules.push('advancedTechDegree');
           }
 
-          if (backgroundResponses.question3.includes( "Financial field concentration, second degree or master\’s")){
+          if (backgroundResponses.question3.includes( 'Financial field concentration, second degree or master\’s')){
             logAnswer3();
             score.financial ++;
             score.modules.push('advancedFinanceDegree');
           }
 
 
-          if (backgroundResponses.question3.includes( "Science or engineering field concentration, second degree or master\’s")){
+          if (backgroundResponses.question3.includes( 'Science or engineering field concentration, second degree or master\’s')){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
           }
 
 
-          if (backgroundResponses.question3.includes( "Other concentration, second degree or master\’s")){
+          if (backgroundResponses.question3.includes( 'Other concentration, second degree or master\’s')){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
           }
 
-          if (backgroundResponses.question3.includes( "No / Don't plan to at this time")){
+          if (backgroundResponses.question3.includes( 'No / Don\'t plan to at this time')){
             logAnswer3();
           }
         }
+
+
+    console.log('****** THIS IS THE SCORE OBJECT *****');
+    console.log(score);
 
     return score;
 }

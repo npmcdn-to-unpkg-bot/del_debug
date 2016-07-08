@@ -9,6 +9,7 @@
     "build-production": "npm run clean && npm run build:webpack",
     "start": "node ./SERVERSIDE/bin/www",
     "lint": "eslint ./CLIENTSIDE/components ./SERVERSIDE/config ./SERVERSIDE/models ./SERVERSIDE/routes server.js",
+    "lint_reducers": "eslint ./SERVERSIDE/reducers",
     "test": "npm run lint",
     "launch": "git pull origin master && brew services start mongodb && npm install && npm run build",
     "heroku-postbuild": "npm run build-production && ls ./CLIENTSIDE/static"

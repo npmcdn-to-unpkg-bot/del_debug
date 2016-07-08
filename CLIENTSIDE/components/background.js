@@ -43,9 +43,6 @@ function convertToScore(url, scope, data){
       type: 'POST',
       data: data,
       success: function(res) {
-        console.log(res)
-        console.log('res message1 from server: ' , res.message1)
-        console.log('res message2 from server: ' , res.message2)
         scope.setState({
           score: res
         })
@@ -60,17 +57,9 @@ function convertToScore(url, scope, data){
 var EducationSelector = React.createClass({
 
   getInitialState: function(){
-    // Set up any states unique to THIS component
-    var uniqueStates = {
-      question: 1,
-      hasBeenAnswered: false,
-      score: {},
+    return({
       fieldValue: ''
-    }
-
-    // jQuery merge objects
-    var stateObject = $.extend({}, uniqueStates, getSharedStates())
-    return(stateObject)
+    })
   },
 
   render: function(){
@@ -111,18 +100,9 @@ var EducationSelector = React.createClass({
 var DegreeSelector = React.createClass({
 
   getInitialState: function(){
-
-    // Set up any states unique to THIS component
-    var uniqueStates = {
-      question: 1,
-      hasBeenAnswered: false,
-      score: {},
+    return({
       fieldValue: ''
-    }
-
-    // jQuery merge objects
-    var stateObject = $.extend({}, uniqueStates, getSharedStates())
-    return(stateObject)
+    })
   },
 
   render: function(){
@@ -215,70 +195,6 @@ var ScoreDisplay = React.createClass({
   }
 });
 
-var SurveyOptions = React.createClass({
-
-  handleHoverOver: function(e){
-    TweenMax.to($(e.target).closest('.optionBox'), .5, {backgroundColor: 'rgba(255,255,255,.6)', color: '#000'});
-  },
-
-  handleHoverOut: function(e){
-    TweenMax.to($(e.target).closest('.optionBox'), .5, {backgroundColor: 'rgba(32,32,32,.45)', color: '#A1EB87'});
-  },
-
-  checkEnd: function(answer){
-
-    // Just tell us if it's the last question in this section
-    if (this.props.questionIndex < this.props.totalQuestions) {
-      this.props.handleNext(answer)
-    } else {
-      console.log('submitting last question')
-      this.props.handleNext(answer)
-    }
-  },
-
-  render: function(){
-
-    // Reset the response indicator
-    $('#choiceA').removeClass('selectedAnswer')
-    $('#choiceB').removeClass('selectedAnswer')
-
-    // Scrub out the WordPress HTML tags && make uppercase
-    function formatQuestion(input){
-      return input.replace(/(<([^>]+)>)/ig,"").toUpperCase()
-    }
-
-    // Highlight the user's selection
-    if (this.props.answer != null) {
-      if (this.props.answer) {
-        $('#choiceA').addClass('selectedAnswer')
-      } else {
-        $('#choiceB').addClass('selectedAnswer')
-      }
-    }
-
-    // Temporary indicator for debugging
-    var answer = this.props.answer ? <p>"A"</p> : <p>"B"</p>
-    var responseIndicator = this.props.hasBeenAnswered ? <h4>YOU ANSWERED <strong style={{display: 'inline-block'}}>{answer}</strong></h4> : <p>not answered</p>
-
-    return(
-      <div>
-        <div className="selectorHolder">
-          <h3 className='passionTitle'>Which would you prefer or find most rewarding?</h3>
-          <p className='backBtn' onClick={this.props.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
-          <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(true)}>
-            <p className='temp2'>{formatQuestion(this.props.choiceA)}</p>
-          </div>
-          <div id='choiceB' className='optionBox right' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(false)}>
-            <p className='temp2'>{formatQuestion(this.props.choiceB)}</p>
-          </div>
-          <div id='divider' className='temp'><p>or</p></div>
-          {responseIndicator}
-          <ScoreDisplay score={this.props.score}/>
-        </div>
-      </div>
-    )
-  }
-});
 
 var Survey = React.createClass({
 
@@ -315,7 +231,7 @@ var Survey = React.createClass({
 
     // // NOT on the last question...
     if (this.state.question < (this.state.data.length - 1) ){
-      console.log('this is not the last question')
+      console.log('you did not answer the last question yet')
       // First, tell us if user has already answered the question
       var index = this.state.question + 1
       if (this.state.responses["question" + index].answer != null){
@@ -335,7 +251,7 @@ var Survey = React.createClass({
 
         // ON the last question....
       } else {
-        console.log('this is the last question')
+        console.log('you just answered the last question')
         var index = this.state.question
         if (this.state.responses["question" + index].answer != null){
             this.setState({

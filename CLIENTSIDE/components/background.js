@@ -97,6 +97,8 @@ var EducationSelector = React.createClass({
       )
     }
 
+    console.log(options)
+
     return(
       <div>
       <Select
@@ -143,7 +145,6 @@ var DegreeSelector = React.createClass({
 
     var that = this;
     function logChange(answer) {
-        console.log(answer)
         that.setState({
           fieldValue: answer.value
         });
@@ -167,7 +168,6 @@ var DegreeSelector = React.createClass({
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
 
-    console.log(options)
 
     return(
       <div>
@@ -317,8 +317,6 @@ var Survey = React.createClass({
     // Log the user's response
     this.state.responses["question" + this.state.question].answer = answer;
 
-    console.log('responses state: ' , this.state.responses)
-
     // // NOT on the last question...
     // if (this.state.question < (this.state.data.length - 1) ){
     //
@@ -403,7 +401,7 @@ var Survey = React.createClass({
     return(
       <div>
 
-        {DegreeSelectorCond}
+        <EducationSelector handleNext={this.handleNext}/>
         <ScoreDisplay score={this.state.score}/>
         <label>
           Test

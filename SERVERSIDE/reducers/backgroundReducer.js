@@ -166,6 +166,46 @@ module.exports = function passionReducer(backgroundResponses){
 
             }
           }
-          
+
+      if (Boolean(backgroundResponses.question2)){
+
+        var message;
+
+        function logAnswer(){
+          message = 'Chose ' + backgroundResponses.question1
+          console.log(message)
+          score.message = message;
+        }
+
+        switch(backgroundResponses.question2) {
+
+          // **********************************************************
+          // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINT DISTRIBUTION)
+
+          case "I\'m a freshman":
+          case "I\'m a sophomore":
+          case "I\'m a junior":
+            logAnswer();
+            score.modules.push('FSJ');
+            break;
+
+          case "I\'m a senior":
+            logAnswer();
+            score.modules.push('Senior');
+            break;
+
+          case "I\'m a graduate student":
+            logAnswer();
+            score.modules.push('advancedDegrees');
+            break;
+
+          case "I\'ve completed my education":
+            logAnswer();
+            score.modules.push('completedSchool');
+            break;
+
+            }
+          }
+
     return score;
 }

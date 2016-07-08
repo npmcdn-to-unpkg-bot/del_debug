@@ -253,7 +253,7 @@ module.exports = function backgroundReducer(backgroundResponses){
 
           if (backgroundResponses.question3.indexOf( 'Financial field concentration, second degree or master\’s') != -1){
             logAnswer3();
-            score.financial ++;
+            score.nontech ++;
             score.modules.push('advancedFinanceDegree');
           }
 

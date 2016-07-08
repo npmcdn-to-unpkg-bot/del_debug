@@ -137,8 +137,13 @@ var DegreeSelector = React.createClass({
 
   render: function(){
 
+    function toTitleCase(str){
+          return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
+
     var that = this;
     function logChange(answer) {
+        console.log(answer)
         that.setState({
           fieldValue: answer.value
         });
@@ -150,19 +155,28 @@ var DegreeSelector = React.createClass({
     if (this.state.gotData){
       this.state.data[1].acf.background_categories.forEach(
         function(element, index, array){
-          options.push({value: element.category_name, label: element.category_name})
+          options.push({value: toTitleCase(element.category_name), label: toTitleCase(element.category_name)})
         }
       )
     }
 
+    // SORT THESE ALPHABETICALLY
+    options.sort(function(a, b) {
+      var textA = a.value.toUpperCase();
+      var textB = b.value.toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+
+    console.log(options)
+
     return(
       <div>
-      <Select
-        name="form-field-name"
-        value={this.state.fieldValue}
-        options={options}
-        onChange={logChange}
-      />
+        <Select
+          name="form-field-name"
+          value={this.state.fieldValue}
+          options={options}
+          onChange={logChange}
+        />
       </div>
     )
   }
@@ -303,47 +317,49 @@ var Survey = React.createClass({
     // Log the user's response
     this.state.responses["question" + this.state.question].answer = answer;
 
-    console.log(this.state.responses)
+    console.log('responses state: ' , this.state.responses)
 
-    // NOT on the last question...
-    if (this.state.question < (this.state.data.length - 1) ){
-
-      // First, tell us if user has already answered the question
-      var index = this.state.question + 1
-      if (this.state.responses["question" + index].answer != null){
-          this.setState({
-            hasBeenAnswered: true
-          })
-        } else {
-          this.setState({
-            hasBeenAnswered: false
-          })
-        }
-
-        // Then, increment the question index
-        this.setState({
-          question: this.state.question + 1
-        })
-
-        // ON the last question....
-      } else {
-        var index = this.state.question
-        if (this.state.responses["question" + index].answer != null){
-            this.setState({
-              hasBeenAnswered: true
-            })
-          } else {
-            this.setState({
-              hasBeenAnswered: false
-            })
-          }
-      };
+    // // NOT on the last question...
+    // if (this.state.question < (this.state.data.length - 1) ){
+    //
+    //   // First, tell us if user has already answered the question
+    //   var index = this.state.question + 1
+    //   if (this.state.responses["question" + index].answer != null){
+    //       this.setState({
+    //         hasBeenAnswered: true
+    //       })
+    //     } else {
+    //       this.setState({
+    //         hasBeenAnswered: false
+    //       })
+    //     }
+    //
+    //     // Then, increment the question index
+    //     this.setState({
+    //       question: this.state.question + 1
+    //     })
+    //
+    //     // ON the last question....
+    //   } else {
+    //     var index = this.state.question
+    //     if (this.state.responses["question" + index].answer != null){
+    //         this.setState({
+    //           hasBeenAnswered: true
+    //         })
+    //       } else {
+    //         this.setState({
+    //           hasBeenAnswered: false
+    //         })
+    //       }
+    //   };
 
       // Format response data for sending into server
       var responseData = {}
       for (var i = 1; i < 2; i++){
           responseData['question' + i] = this.state.responses['question' + i].answer
       }
+
+      console.log(responseData);
 
       var scope = this;
       var url = "/api/background";
@@ -387,7 +403,7 @@ var Survey = React.createClass({
     return(
       <div>
 
-        <EducationSelector/>
+        {DegreeSelectorCond}
         <ScoreDisplay score={this.state.score}/>
         <label>
           Test

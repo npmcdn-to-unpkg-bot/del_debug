@@ -193,10 +193,6 @@ module.exports = function backgroundReducer(backgroundResponses){
 
       if (Boolean(backgroundResponses.question3)){
 
-        console.log('****** ENTERED QUESTION 3 ******')
-        console.log('sent this array: ' , backgroundResponses.question3 )
-
-
         var message;
 
         function logAnswer3(){
@@ -206,7 +202,6 @@ module.exports = function backgroundReducer(backgroundResponses){
         }
 
           if (backgroundResponses.question3.indexOf('Certified Public Accountant') != -1){
-            console.log('ENTERED the CPA hook')
             logAnswer3();
             score.audit ++;
             score.tax ++;
@@ -280,10 +275,6 @@ module.exports = function backgroundReducer(backgroundResponses){
             logAnswer3();
           }
         }
-
-
-    console.log('****** THIS IS THE SCORE OBJECT *****');
-    console.log(score);
 
     return score;
 }

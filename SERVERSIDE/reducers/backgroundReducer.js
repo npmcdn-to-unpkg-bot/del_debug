@@ -205,78 +205,78 @@ module.exports = function backgroundReducer(backgroundResponses){
           score.message3 = message;
         }
 
-          if (backgroundResponses.question3.includes('Certified Public Accountant')){
+          if (backgroundResponses.question3.indexOf('Certified Public Accountant') != -1){
             console.log('ENTERED the CPA hook')
             logAnswer3();
             score.audit ++;
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.includes('Juris Doctor or Master of Laws')){
+          if (backgroundResponses.question3.indexOf('Juris Doctor or Master of Laws') != -1){
             logAnswer3();
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.includes( 'Master of Accounting')){
+          if (backgroundResponses.question3.indexOf( 'Master of Accounting') != -1){
             logAnswer3();
             score.tax ++;
             score.audit ++;
             score.advisory ++;
           }
 
-          if (backgroundResponses.question3.includes( 'Master of Taxation')){
+          if (backgroundResponses.question3.indexOf( 'Master of Taxation') != -1){
             logAnswer3();
             score.tax ++;
             score.audit ++;
           }
 
-          if (backgroundResponses.question3.includes( 'Master of Business Administration')){
+          if (backgroundResponses.question3.indexOf( 'Master of Business Administration') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedBusinessDegree');
           }
 
-          if (backgroundResponses.question3.includes( 'Master of Health Administration')){
+          if (backgroundResponses.question3.indexOf( 'Master of Health Administration') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedHealthDegree');
           }
 
-          if (backgroundResponses.question3.includes( 'Master of Public Administration or Policy')){
+          if (backgroundResponses.question3.indexOf( 'Master of Public Administration or Policy') != -1){
             logAnswer3();
             score.federal ++;
             score.modules.push('advancedPolicyDegree');
           }
 
-          if (backgroundResponses.question3.includes( 'Technology field concentration, second degree or master\’s')){
+          if (backgroundResponses.question3.indexOf( 'Technology field concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.tech ++;
             score.modules.push('advancedTechDegree');
           }
 
-          if (backgroundResponses.question3.includes( 'Financial field concentration, second degree or master\’s')){
+          if (backgroundResponses.question3.indexOf( 'Financial field concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.financial ++;
             score.modules.push('advancedFinanceDegree');
           }
 
 
-          if (backgroundResponses.question3.includes( 'Science or engineering field concentration, second degree or master\’s')){
+          if (backgroundResponses.question3.indexOf( 'Science or engineering field concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
           }
 
 
-          if (backgroundResponses.question3.includes( 'Other concentration, second degree or master\’s')){
+          if (backgroundResponses.question3.indexOf( 'Other concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
           }
 
-          if (backgroundResponses.question3.includes( 'No / Don\'t plan to at this time')){
+          if (backgroundResponses.question3.indexOf( 'No / Don\'t plan to at this time') != -1){
             logAnswer3();
           }
         }

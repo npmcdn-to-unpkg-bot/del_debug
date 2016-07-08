@@ -54,6 +54,73 @@ function convertToScore(url, scope, data){
        });
  };
 
+var ExtraDegreesChecklist = React.createClass({
+  getInitialState: function(){
+    return({
+      selectedAnswers: []
+    })
+  },
+
+  render: function(){
+
+    Array.prototype.remove = function() {
+      var what, a = arguments, L = a.length, ax;
+      while (L && this.length) {
+          what = a[--L];
+          while ((ax = this.indexOf(what)) !== -1) {
+              this.splice(ax, 1);
+          }
+      }
+      return this;
+    };
+
+    var that = this;
+    function checkHandler(e){
+      if (e.target.checked) {
+        var tempArray = that.state.selectedAnswers;
+        tempArray.push(e.target.name)
+        that.setState({
+          selectedAnswers: tempArray
+        })
+      } else {
+        var tempArray = that.state.selectedAnswers;
+        tempArray.remove(e.target.name)
+        that.setState({
+          selectedAnswers: tempArray
+        })
+      }
+    };
+
+    var checkBoxes = this.props.data[3].acf.background_categories.map(function(element){
+      return(
+        <li>
+          <label>
+           {element.category_name} &nbsp;
+           <Checkbox
+             name={element.category_name}
+             onChange={checkHandler}
+           />
+         </label>
+       </li>
+      )
+    })
+
+    return (
+      <div>
+        <div className="col-md-3"></div>
+        <div className="col-md-6">
+          <ul>
+          {checkBoxes}
+          </ul>
+        </div>
+        <div className="col-md-3"></div>
+        <button onClick={() => this.props.handleNext(this.state.selectedAnswers)}>NEXT</button>
+      </div>
+    )
+  }
+
+});
+
 var EducationSelector = React.createClass({
 
   getInitialState: function(){
@@ -157,6 +224,7 @@ var ScoreDisplay = React.createClass({
 
     var indicator = this.props.score.message1 ? this.props.score.message1 : <p>no response yet</p>
     var indicator2 = this.props.score.message2 ? this.props.score.message2 : <p>no response yet</p>
+    var indicator3 = this.props.score.message3 ? this.props.score.message3 : <p>no response yet</p>
 
     // SET UP DEBUGGING INDICATOR FOR MODULES
     var modules;
@@ -170,6 +238,7 @@ var ScoreDisplay = React.createClass({
       <div className='row'>
         <div className="col-md-12 text-center"><h4>{indicator} <i>(Q1 response)</i></h4></div>
         <div className="col-md-12 text-center"><h4>{indicator2} <i>(Q2 response)</i></h4></div>
+        <div className="col-md-12 text-center"><h4>{indicator3} <i>(Q3 response)</i></h4></div>
         <div className='col-md-4'>
           <h2>CORE AREAS</h2>
           <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>
@@ -270,7 +339,6 @@ var Survey = React.createClass({
           responseData['question' + i] = this.state.responses['question' + i].answer
       }
 
-      window.responseData = responseData;
       console.log('sending this to reducer: ' , responseData);
 
       var scope = this;
@@ -323,7 +391,7 @@ var Survey = React.createClass({
           break;
 
         case 3:
-          return <a onClick={()=>this.handleNext(['Master of Health Administration', 'Master of Business Administration'])}>question 3</a>;
+          return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.data}/>;
           break;
 
       }

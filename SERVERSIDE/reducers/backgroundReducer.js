@@ -196,7 +196,7 @@ module.exports = function passionReducer(backgroundResponses){
         var message;
 
         function logAnswer3(){
-          message = 'Chose ' + backgroundResponses.question3
+          message = 'Chose ' + backgroundResponses.question3.join(' and ')
           // console.log(message)
           score.message3 = message;
         }
@@ -207,9 +207,22 @@ module.exports = function passionReducer(backgroundResponses){
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.includes("Juris Doctor")){
+          if (backgroundResponses.question3.includes("Juris Doctor or Master of Laws")){
             logAnswer3();
             score.tax ++;
+          }
+
+          if (backgroundResponses.question3.includes( "Master of Accounting")){
+            logAnswer3();
+            score.tax ++;
+            score.audit ++;
+            score.advisory ++;
+          }
+
+          if (backgroundResponses.question3.includes( "Master of Taxation")){
+            logAnswer3();
+            score.tax ++;
+            score.audit ++;
           }
 
           if (backgroundResponses.question3.includes( "Master of Business Administration")){
@@ -217,6 +230,19 @@ module.exports = function passionReducer(backgroundResponses){
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedBusinessDegree');
+          }
+
+          if (backgroundResponses.question3.includes( "Master of Health Administration")){
+            logAnswer3();
+            score.consulting ++;
+            score.advisory ++;
+            score.modules.push('advancedHealthDegree');
+          }
+
+          if (backgroundResponses.question3.includes( "Master of Public Administration or Policy")){
+            logAnswer3();
+            score.federal ++;
+            score.modules.push('advancedPolicyDegree');
           }
 
           if (backgroundResponses.question3.includes( "Technology field concentration, second degree or master\’s")){
@@ -236,20 +262,6 @@ module.exports = function passionReducer(backgroundResponses){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
-          }
-
-
-          if (backgroundResponses.question3.includes( "Master of Health Administration")){
-            logAnswer3();
-            score.consulting ++;
-            score.advisory ++;
-            score.modules.push('advancedHealthDegree');
-          }
-
-          if (backgroundResponses.question3.includes( "Master of Public Administration or Policy")){
-            logAnswer3();
-            score.federal ++;
-            score.modules.push('advancedPolicyDegree');
           }
 
 

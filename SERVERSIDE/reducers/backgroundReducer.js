@@ -117,7 +117,7 @@ module.exports = function passionReducer(backgroundResponses){
 
           function logAnswer(){
             message = 'Chose ' + backgroundResponses.question1
-            console.log(message) 
+            console.log(message)
             score.message1 = message;
           }
 

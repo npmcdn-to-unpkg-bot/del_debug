@@ -43,6 +43,7 @@ function convertToScore(url, scope, data){
       type: 'POST',
       data: data,
       success: function(res) {
+        console.log(res)
         console.log('res message1 from server: ' , res.message1)
         console.log('res message2 from server: ' , res.message2)
         scope.setState({

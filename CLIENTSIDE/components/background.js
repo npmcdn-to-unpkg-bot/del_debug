@@ -41,7 +41,7 @@ function convertToScore(url, scope, data){
    $.ajax({
       url: url,
       type: 'POST',
-      data: data,
+      data: JSON.stringify(data),
       success: function(res) {
         scope.setState({
           score: res
@@ -266,16 +266,29 @@ var Survey = React.createClass({
 
       // Format response data for sending into server
       var responseData = {}
-      for (var i = 1; i < 3; i++){
+      for (var i = 1; i < 4; i++){
+          // if (typeof this.state.responses['question' + i].answer === "object"){
+          //   responseData['question' + i] = {};
+          //   var counter = 1;
+          //   this.state.responses['question' + i].answer.forEach(
+          //     function(element, index, array){
+          //       responseData['question' + i]['selection' + counter] = element;
+          //       counter++;
+          //   })
+          // } else {
+          //   responseData['question' + i] = this.state.responses['question' + i].answer
+          // }
+
           responseData['question' + i] = this.state.responses['question' + i].answer
       }
 
+      window.responseData = responseData;
       console.log('sending this to reducer: ' , responseData);
 
       var scope = this;
       var url = "/api/background";
 
-      convertToScore(url, scope, responseData);
+      // convertToScore(url, scope, responseData);
     },
 
   handleBack: function(){
@@ -319,6 +332,10 @@ var Survey = React.createClass({
 
         case 2:
           return EducationSelectorCond;
+          break;
+
+        case 3:
+          return <a onClick={()=>this.handleNext(['Master of Health Administration', 'Certified Public Accountant'])}>question 3</a>;
           break;
 
       }

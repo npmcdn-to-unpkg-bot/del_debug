@@ -10,13 +10,15 @@ module.exports = function passionReducer(backgroundResponses){
       consulting: 0,
       advisory: 0,
       tax: 0,
+      financial: 0,
       federal: 0,
       public: 0,
       tech: 0,
       nontech: 0,
       modules: [],
       message1: '',
-      message2: ''
+      message2: '',
+      message3: ''
     }
 
       if (Boolean(backgroundResponses.question1)){
@@ -164,9 +166,6 @@ module.exports = function passionReducer(backgroundResponses){
 
         switch(backgroundResponses.question2) {
 
-          // **********************************************************
-          // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINT DISTRIBUTION)
-
           case "I\'m a freshman":
           case "I\'m a sophomore":
           case "I\'m a junior":
@@ -191,6 +190,79 @@ module.exports = function passionReducer(backgroundResponses){
 
             }
           }
+
+      if (Boolean(backgroundResponses.question3)){
+
+        var message;
+
+        function logAnswer3(){
+          message = 'Chose ' + backgroundResponses.question3
+          console.log(message)
+          score.message3 = message;
+        }
+
+          if (backgroundResponses.question3.includes("Certified Public Accountant")){
+            logAnswer3();0
+            score.audit ++;
+            score.tax ++;
+          }
+
+          if (backgroundResponses.question3.includes("Juris Doctor")){
+            logAnswer3();
+            score.tax ++;
+          }
+
+          if (backgroundResponses.question3.includes( "Master of Business Administration")){
+            logAnswer3();
+            score.consulting ++;
+            score.advisory ++;
+            score.modules.push('advancedBusinessDegree');
+          }
+
+          if (backgroundResponses.question3.includes( "Technology field concentration, second degree or master\’s")){
+            logAnswer3();
+            score.tech ++;
+            score.modules.push('advancedTechDegree');
+          }
+
+          if (backgroundResponses.question3.includes( "Financial field concentration, second degree or master\’s")){
+            logAnswer3();
+            score.financial ++;
+            score.modules.push('advancedFinanceDegree');
+          }
+
+
+          if (backgroundResponses.question3.includes( "Science or engineering field concentration, second degree or master\’s")){
+            logAnswer3();
+            score.consulting ++;
+            score.advisory ++;
+          }
+
+
+          if (backgroundResponses.question3.includes( "Master of Health Administration")){
+            logAnswer3();
+            score.consulting ++;
+            score.advisory ++;
+            score.modules.push('advancedHealthDegree');
+          }
+
+          if (backgroundResponses.question3.includes( "Master of Public Administration or Policy")){
+            logAnswer3();
+            score.federal ++;
+            score.modules.push('advancedPolicyDegree');
+          }
+
+
+          if (backgroundResponses.question3.includes( "Other concentration, second degree or master\’s")){
+            logAnswer3();
+            score.consulting ++;
+            score.advisory ++;
+          }
+
+          if (backgroundResponses.question3.includes( "No / Don't plan to at this time")){
+            logAnswer3();
+          }
+        }
 
     return score;
 }

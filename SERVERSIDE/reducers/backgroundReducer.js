@@ -1,5 +1,5 @@
 
-module.exports = function passionReducer(backgroundResponses){
+module.exports = function backgroundReducer(backgroundResponses){
 
   console.log('firing backgroundReducer')
 
@@ -201,12 +201,13 @@ module.exports = function passionReducer(backgroundResponses){
 
         function logAnswer3(){
           message = 'Chose ' + backgroundResponses.question3.join(' and ')
-          // console.log(message)
+          console.log(message)
           score.message3 = message;
         }
 
           if (backgroundResponses.question3.includes("Certified Public Accountant")){
-            logAnswer3();0
+            console.log('ENTERED the CPA hook')
+            logAnswer3();
             score.audit ++;
             score.tax ++;
           }

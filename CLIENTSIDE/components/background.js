@@ -107,6 +107,7 @@ var ExtraDegreesChecklist = React.createClass({
 
     return (
       <div>
+        <h3>Q3 - Extras Selector ... adds points AND modules</h3>
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <ul>

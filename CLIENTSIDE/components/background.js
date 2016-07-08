@@ -142,7 +142,7 @@ var DegreeSelector = React.createClass({
     if (this.props.gotData){
       this.props.data[1].acf.background_categories.forEach(
         function(element, index, array){
-          options.push({value: element.category_name, label: element.category_name})
+          options.push({value: toTitleCase(element.category_name), label: toTitleCase(element.category_name)})
         }
       )
     }

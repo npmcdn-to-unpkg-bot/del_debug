@@ -15,7 +15,8 @@ module.exports = function passionReducer(backgroundResponses){
       tech: 0,
       nontech: 0,
       modules: [],
-      message: ''
+      message1: '',
+      message2: ''
     }
 
       if (Boolean(backgroundResponses.question1)){
@@ -32,7 +33,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Forensic Accounting":
             message = 'selected a "prompted option"..... Compiles to Accounting'
             console.log(message)
-            score.message = message;
+            score.message1 = message;
             score.audit ++;
             score.tax ++;
             score.advisory ++;
@@ -47,7 +48,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Risk Management":
               message = 'selected a "prompted option"..... Compiles to Business Administration'
               console.log(message)
-              score.message = message;
+              score.message1 = message;
               score.audit ++;
               score.tax ++;
               score.consulting ++;
@@ -58,7 +59,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Information Technology":
             message = 'selected a "prompted option"..... Compiles to Computer Information Systems - triggered Tech focus'
             console.log(message)
-            score.message = message;
+            score.message1 = message;
             score.consulting ++;
             score.advisory ++;
             score.tech += 50;
@@ -70,7 +71,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Web Development":
             message = 'selected a "prompted option"..... Compiles to Computer Science - triggered Tech focus'
             console.log(message)
-            score.message = message;
+            score.message1 = message;
             score.consulting ++;
             score.advisory ++;
             score.tech += 50;
@@ -81,7 +82,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Electrical Engineering":
             message = 'selected a "prompted option"..... Compiles to Systems Engineering - triggered Tech focus'
             console.log(message)
-            score.message = message;
+            score.message1 = message;
             score.consulting ++;
             score.advisory ++;
             score.tech += 50;
@@ -92,7 +93,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Human Resources":
             message = 'selected a "prompted option"..... Compiles to Human Resources Management'
             console.log(message)
-            score.message = message;
+            score.message1 = message;
             score.tax ++;
             score.consulting ++;
             break;
@@ -104,7 +105,7 @@ module.exports = function passionReducer(backgroundResponses){
           case "Graphic Design":
             message = 'selected a "prompted option"..... Compiles to Marketing or Communications'
             console.log(message)
-            score.message = message;
+            score.message1 = message;
             score.consulting ++;
             score.advisory ++;
             score.modules.push('enabledServices');
@@ -117,7 +118,7 @@ module.exports = function passionReducer(backgroundResponses){
           function logAnswer(){
             message = 'Chose ' + backgroundResponses.question1
             console.log(message)
-            score.message = message;
+            score.message1 = message;
           }
 
           case "Economics":
@@ -174,7 +175,7 @@ module.exports = function passionReducer(backgroundResponses){
         function logAnswer(){
           message = 'Chose ' + backgroundResponses.question2
           console.log(message)
-          score.message = message;
+          score.message2 = message;
         }
 
         switch(backgroundResponses.question2) {

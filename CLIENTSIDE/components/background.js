@@ -43,7 +43,8 @@ function convertToScore(url, scope, data){
       type: 'POST',
       data: data,
       success: function(res) {
-        console.log('res message from server: ' , res.message)
+        console.log('res message1 from server: ' , res.message1)
+        console.log('res message2 from server: ' , res.message2)
         scope.setState({
           score: res
         })
@@ -173,7 +174,8 @@ var ScoreDisplay = React.createClass({
 
   render: function(){
 
-    var indicator = this.props.score.message ? this.props.score.message : <p>no response yet</p>
+    var indicator = this.props.score.message1 ? this.props.score.message1 : <p>no response yet</p>
+    var indicator2 = this.props.score.message2 ? this.props.score.message2 : <p>no response yet</p>
 
     // SET UP DEBUGGING INDICATOR FOR MODULES
     var modules;
@@ -185,7 +187,8 @@ var ScoreDisplay = React.createClass({
 
     return(
       <div className='row'>
-        <div className="col-md-12 text-center"><h4>{indicator}</h4></div>
+        <div className="col-md-12 text-center"><h4>{indicator} <i>(Q1 response)</i></h4></div>
+        <div className="col-md-12 text-center"><h4>{indicator2} <i>(Q2 response)</i></h4></div>
         <div className='col-md-4'>
           <h2>CORE AREAS</h2>
           <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>
@@ -406,16 +409,9 @@ var Survey = React.createClass({
 
     return(
       <div>
-
+        <p className='backBtn' onClick={this.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
         {questionToShow()}
         <ScoreDisplay score={this.state.score}/>
-        <label>
-          Test
-          <Checkbox
-            name="my-checkbox"
-            onChange={onChange}
-          />
-        </label>
       </div>
     )
   }

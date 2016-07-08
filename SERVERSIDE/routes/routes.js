@@ -36,8 +36,6 @@ router.use(function(req, res, next){
 
       .post(jsonParser, function(req, res, err){
           var data = req.body;
-          console.log(data)
-          console.log(JSON.parse(req.toString()))
           res.json(backgroundReducer(data));
       })
 

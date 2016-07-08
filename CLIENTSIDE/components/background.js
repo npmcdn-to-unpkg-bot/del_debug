@@ -38,19 +38,19 @@ function getInitialData(url, scope){
 };
 
 function convertToScore(url, scope, data){
+
+  var stringData = JSON.stringify(data);
    $.ajax({
       url: url,
       type: 'POST',
-      data: JSON.stringify(data),
+      contentType: "application/json",
+      handleAs: "json",
+      data: stringData,
       success: function(res) {
         scope.setState({
           score: res
         })
-      },
-      error: function(xhr, status, err){
-              console.log('Can\'t do that, Tiger!')
-              console.error(status, err.toString)
-          }.bind(this)
+        }
        });
  };
 
@@ -267,18 +267,6 @@ var Survey = React.createClass({
       // Format response data for sending into server
       var responseData = {}
       for (var i = 1; i < 4; i++){
-          // if (typeof this.state.responses['question' + i].answer === "object"){
-          //   responseData['question' + i] = {};
-          //   var counter = 1;
-          //   this.state.responses['question' + i].answer.forEach(
-          //     function(element, index, array){
-          //       responseData['question' + i]['selection' + counter] = element;
-          //       counter++;
-          //   })
-          // } else {
-          //   responseData['question' + i] = this.state.responses['question' + i].answer
-          // }
-
           responseData['question' + i] = this.state.responses['question' + i].answer
       }
 
@@ -288,7 +276,7 @@ var Survey = React.createClass({
       var scope = this;
       var url = "/api/background";
 
-      // convertToScore(url, scope, responseData);
+      convertToScore(url, scope, responseData);
     },
 
   handleBack: function(){
@@ -335,7 +323,7 @@ var Survey = React.createClass({
           break;
 
         case 3:
-          return <a onClick={()=>this.handleNext(['Master of Health Administration', 'Certified Public Accountant'])}>question 3</a>;
+          return <a onClick={()=>this.handleNext(['Master of Health Administration', 'Master of Business Administration'])}>question 3</a>;
           break;
 
       }

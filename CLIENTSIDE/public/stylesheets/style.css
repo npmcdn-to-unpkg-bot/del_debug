@@ -1,11 +1,11 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Open Sans', sans-serif;
 }
 body#destination {
 	background: #000;
 	color:#fff;
-	padding: 50px 0;
+	padding: 0;
 }
 a {
   color: #00B7FF;
@@ -77,7 +77,7 @@ margin: 0 auto;
 /** Global Elements**/
 .center {
 	text-align: center;
-	margin: 10px;
+	margin: 35px 10px;
 }
 .clear {
 	clear:both;
@@ -94,7 +94,7 @@ button {
 	border:0;
 }
 h1, h2 {
-    font-size: 48px;
+    font-size: 34px;
     font-weight: bold;
     letter-spacing: -1px;
 }
@@ -103,7 +103,8 @@ h1, h2 {
 header {
 	background: #424548;
 	color:#86bc25;
-	padding: 10px 0;
+	padding: 15px 0;
+	border-top: 2px solid #53565a;
 }
 header a {
 	color: #fff;
@@ -125,37 +126,125 @@ header > .panel-container {
 #leftnav {
     float: left;
     width: 50%;
-		line-height: 20px;
+		line-height: 25px;
+		font-weight: bold;
 }
 #leftnav a {
-	margin:0 5px;
+	  margin:0 5px;
 }
 .logo {
     width: 18%;
-		margin-right: 20px;
+		margin-right: 30px;
 }
 #rightnav {
     float: right;
     width: 50%;
 		text-align: right;
-		line-height: 20px;
+		line-height: 25px;
+		font-weight: bold;
 }
+#rightnav a {
+	  font-weight: normal;
+		margin: 0 4px 0 4px;
+}
+.navlegend {
+    display: inline;
+    list-style: outside none none;
+}
+.navlegend > li {
+    background: #27292b;
+    color: #999;
+    display: inline-block;
+    margin: 0 10px;
+    padding: 5px 10px;
+}
+#navlegend span {
+    font-size: 22px;
+}
+
 /**Welcome**/
 #welcome  {
 		background: #f3f3f4;
 		color: #53565a;
+		font-size: 17px;
+		font-weight: 300;
 		-moz-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 		-webkit-box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 		 box-shadow: inset  0 -6px 20px -8px rgba(0, 0, 0, 0.3);
 }
+#welcome ul {
+    list-style: outside none none;
+}
+#welcome li {
+    font-size: 15px;
+    padding: 10px 0 10px 60px;
+    position: relative;
+}
+#welcome li:first-child::before {
+    background: #c4d600;
+    border-radius: 100px;
+    color: #fff;
+    content: "1";
+    font-size: 50px;
+    font-weight: bold;
+    left: -40px;
+    padding: 5px 25px;
+    position: absolute;
+}
+#welcome li:first-child span {
+		 color:#c4d600;
+		 font-weight: bold;
+}
+#welcome li:nth-child(2n)::before {
+    background: #86bc25;
+    border-radius: 100px;
+    color: #fff;
+    content: "2";
+    font-size: 50px;
+    font-weight: bold;
+    left: -40px;
+    padding: 5px 25px;
+    position: absolute;
+}
+#welcome li:nth-child(2n) span {
+		 color:#86bc25;
+		 font-weight: bold;
+}
+#welcome li:nth-child(3n)::before {
+    background: #0097a9;
+    border-radius: 100px;
+    color: #fff;
+    content: "3";
+    font-size: 50px;
+    font-weight: bold;
+    left: -40px;
+    padding: 5px 25px;
+    position: absolute;
+}
+#welcome li:nth-child(3n) span {
+		 color:#0097a9;
+		 font-weight: bold;
+}
 .introleft {
-	width: 50%;
+	width: 47%;
 	float:left;
 }
 .introright {
-	width: 50%;
+	width: 45%;
 	float: right;
 }
+.wicon {
+    margin: 10px 0;
+    width: 25%;
+}
+.introright > p {
+    font-size: 28px;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0 0 50px;
+    width: 70%;
+}
+
 /**Meet Our People**/
 #people {
 	background: #ddefe8;
@@ -166,6 +255,21 @@ header > .panel-container {
 }
 #people h2 {
 	color: #007680;
+}
+.people-box {
+    float: left;
+    margin-right: 1%;
+    position: relative;
+    width: 49%;
+}
+.people-box.second {
+	margin-right:0;
+}
+.people-box img {
+	width:100%;
+}
+.people-box .icon img {
+	width:20%;
 }
 /**Professional Development**/
 #prodev {

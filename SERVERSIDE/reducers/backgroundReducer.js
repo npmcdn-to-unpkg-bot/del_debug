@@ -193,6 +193,10 @@ module.exports = function passionReducer(backgroundResponses){
 
       if (Boolean(backgroundResponses.question3)){
 
+        console.log('****** ENTERED QUESTION 3 ******')
+        console.log('sent this array: ' , backgroundResponses.question3 )
+
+
         var message;
 
         function logAnswer3(){

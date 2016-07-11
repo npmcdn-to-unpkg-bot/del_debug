@@ -269,8 +269,93 @@ header > .panel-container {
 	width:100%;
 }
 .people-box .icon img {
-	width:20%;
+    border: 9px solid #ddefe6;
+    border-radius: 77px;
+		width:90%;
 }
+#people .icon {
+    position: absolute;
+    right: 15px;
+    top: 200px;
+}
+.quote {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 65px;
+    width: 64%;
+    z-index: 9999;
+}
+.quoteby {
+	font-size: 15px;
+	font-style: italic;
+	font-weight:normal;
+	text-align:right;
+}
+.about {
+    background: #a0dcff;
+    margin: 10px 0;
+    padding: 30px;
+		min-height: 269px;
+}
+.factwrapper {
+	clear:both;
+}
+.fact {
+    float: left;
+    font-size: 13px;
+    width: 25%;
+		font-weight: bold;
+		margin:2px 0;
+}
+.facta {
+    float: right;
+    font-size: 13px;
+    width: 75%;
+		margin: 2px 0;
+}
+.peoplefooter {
+    background: #9dd4cf;
+		margin-top: 20px;
+		padding: 20px 5px 20px 15px;
+		position: relative;
+		color:#fff;
+}
+.peoplefooter .footer-heading > img {
+    border: 9px solid #ddefe8;
+    border-radius: 77px;
+    position: absolute;
+    top: -20px;
+}
+.pf-heading {
+    font-size: 21px;
+		line-height: 20px;
+    font-weight: bold;
+		margin-right:8px;
+}
+.footer-heading {
+    float: left;
+    width: 24%;
+}
+.footer-content {
+	font-size: 13px;
+}
+.biobtn {
+    background: #fff;
+    padding: 2px 15px;
+		margin:0 5px 0 10px;
+}
+.biobtn a {
+	color:#9dd4cf;
+	font-weight:bold;
+}
+.biobtn a:hover {
+	color:#9dd4cf;
+	text-decoration:none;
+}
+
 /**Professional Development**/
 #prodev {
 	background: #f3f3f4;

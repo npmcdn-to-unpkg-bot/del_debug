@@ -159,7 +159,7 @@ var SurveyOptions = React.createClass({
           {responseIndicator}
           <ScoreDisplay score={this.props.score}/>
         </div>
-      </div> 
+      </div>
     )
   }
 });

@@ -1,19 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require( 'classnames' );
+
 var Selector = require('./selectorField.js');
+var Progress = require('./progress-spinner');
+
 var Checkbox = require('rc-checkbox');
 
-
-function getSharedStates(){
-  return({
-    gotData: false,
-    data: [],
-    responses: {}
-  })
-};
-
-function getInitialData(url, scope){
+function getSectionOneData(url, scope){
   $.ajax({
      url: url,
      type: 'GET',
@@ -21,17 +15,77 @@ function getInitialData(url, scope){
      success: function(res) {
 
        // Set up our client-side "store" for this section's user responses
-       var tempData = {};
+       var tempData = {section1: {}};
        for (var i = 1; i < res.length; i++){
-         tempData["question" + (i)] = {answer: null}
+         tempData.section1["question" + (i)] = {answer: null}
        }
 
        console.log('This is the client state: ', tempData)
 
+       // CLIENT STATE === responses
        scope.setState({
          gotData: true,
-         data: res,
+         sectionOneData: res,
          responses: tempData
+       })
+     }
+   })
+};
+
+function getSectionTwoData(url, scope){
+  console.log("section1 resp:" , scope.state.responses)
+  $.ajax({
+     url: url,
+     type: 'GET',
+     dataType: 'json',
+     success: function(res) {
+
+       // Set up our client-side "store" for this section's user responses
+       var tempData = {section2: {}};
+       for (var i = 1; i < res.length; i++){
+         tempData.section2["question" + (i)] = {answer: null}
+       }
+
+       console.log('This is the client state: ', tempData)
+
+       // jQuery merge objects
+       var combinedResponses = $.extend({}, scope.state.responses, tempData);
+
+       console.log("combined:" , combinedResponses)
+
+       // CLIENT STATE === responses
+       scope.setState({
+         sectionTwoData: res,
+         responses: combinedResponses
+       })
+     }
+   })
+};
+
+function getSectionThreeData(url, scope){
+  $.ajax({
+     url: url,
+     type: 'GET',
+     dataType: 'json',
+     success: function(res) {
+
+       // Set up our client-side "store" for this section's user responses
+       var tempData = {section3: {}};
+       for (var i = 1; i < res.length; i++){
+         tempData.section3["question" + (i)] = {answer: null}
+       }
+
+       console.log('This is the client state: ', tempData)
+
+       // jQuery merge objects
+       var combinedResponses = $.extend({}, scope.state.responses, tempData);
+
+       console.log("combined:" , combinedResponses)
+
+       // CLIENT STATE === responses
+       scope.setState({
+         sectionThreeData: res,
+         responses: combinedResponses
        })
      }
    })
@@ -172,42 +226,41 @@ var ScoreDisplay = React.createClass({
 var Survey = React.createClass({
 
   getInitialState: function(){
-
-    // Set up any states unique to THIS component
-    var uniqueStates = {
-      question: 1,
-      hasBeenAnswered: false,
-      score: {}
-    }
-
-    // jQuery merge objects
-    var stateObject = $.extend({}, uniqueStates, getSharedStates())
-    return(stateObject)
+      return({
+        question: 1,
+        hasBeenAnswered: false,
+        score: {},
+        gotData: false,
+        sectionOneData: [],
+        sectionTwoData: [],
+        sectionThreeData: [],
+        responses: {}
+      })
   },
 
   componentDidMount: function(){
     var scope = this;
     var url = "https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/backgroundq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC";
 
-    getInitialData(url, scope);
+    getSectionOneData(url, scope);
   },
 
   handleNext: function(answer){
 
-    console.log('old answer to question'+this.state.question, this.state.responses["question" + this.state.question].answer)
+    console.log('old answer to question'+this.state.question, this.state.responses.section1["question" + this.state.question].answer)
 
     // Log the user's response
-    this.state.responses["question" + this.state.question].answer = answer;
+    this.state.responses.section1["question" + this.state.question].answer = answer;
 
-    console.log('new answer to question'+this.state.question, this.state.responses["question" + this.state.question].answer)
+    console.log('new answer to question'+this.state.question, this.state.responses.section1["question" + this.state.question].answer)
     console.log('new client state', this.state.responses)
 
     // // NOT on the last question...
-    if (this.state.question < (this.state.data.length - 1) ){
+    if (this.state.question < (this.state.sectionOneData.length - 1) ){
       console.log('you did not answer the last question yet')
       // First, tell us if user has already answered the question
       var index = this.state.question + 1
-      if (this.state.responses["question" + index].answer != null){
+      if (this.state.responses.section1["question" + index].answer != null){
           this.setState({
             hasBeenAnswered: true
           })
@@ -226,7 +279,7 @@ var Survey = React.createClass({
       } else {
         console.log('you just answered the last question')
         var index = this.state.question
-        if (this.state.responses["question" + index].answer != null){
+        if (this.state.responses.section1["question" + index].answer != null){
             this.setState({
               hasBeenAnswered: true
             })
@@ -240,7 +293,7 @@ var Survey = React.createClass({
       // Format response data for sending into server
       var responseData = {}
       for (var i = 1; i < 4; i++){
-          responseData['question' + i] = this.state.responses['question' + i].answer
+          responseData['question' + i] = this.state.responses.section1['question' + i].answer
       }
 
       console.log('sending this to reducer: ' , responseData);
@@ -293,7 +346,7 @@ var Survey = React.createClass({
                 <Selector questionIndex={questionIndex}
                   handleNext={this.handleNext}
                   gotData={this.state.gotData}
-                  data={this.state.data}
+                  data={this.state.sectionOneData}
                   titleCase={true}
                   sortAlphabetically={true}
                 />
@@ -308,7 +361,7 @@ var Survey = React.createClass({
                 <Selector questionIndex={questionIndex}
                   handleNext={this.handleNext}
                   gotData={this.state.gotData}
-                  data={this.state.data}
+                  data={this.state.sectionOneData}
                   titleCase={false}
                   sortAlphabetically={false}
                 />
@@ -317,7 +370,7 @@ var Survey = React.createClass({
             break;
 
           case 3:
-            return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.data}/>;
+            return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.sectionOneData}/>;
             break;
 
         }
@@ -333,6 +386,8 @@ var Survey = React.createClass({
         <p className='backBtn' onClick={this.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
         {questionToShow()}
         <ScoreDisplay score={this.state.score}/>
+        <button onClick={() => getSectionTwoData("https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/passionq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC", this)}>Testing</button>
+        <button onClick={() => getSectionThreeData("https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/projectq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC", this)}>Testing</button>
       </div>
     )
   }

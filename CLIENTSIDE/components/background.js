@@ -7,7 +7,7 @@ var Progress = require('./progress-spinner');
 
 var Checkbox = require('rc-checkbox');
 
-function getSectionOneData(url, scope){
+function getData(url, scope){
   $.ajax({
      url: url,
      type: 'GET',
@@ -24,13 +24,15 @@ function getSectionOneData(url, scope){
 
        // CLIENT STATE === responses
        scope.setState({
-         gotData: true,
          sectionOneData: res,
          responses: tempData
        })
+
+       getSectionTwoData("https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/passionq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC", scope);
      }
    })
 };
+
 
 function getSectionTwoData(url, scope){
   console.log("section1 resp:" , scope.state.responses)
@@ -58,9 +60,12 @@ function getSectionTwoData(url, scope){
          sectionTwoData: res,
          responses: combinedResponses
        })
+
+       getSectionThreeData("https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/projectq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC", scope)
      }
    })
 };
+
 
 function getSectionThreeData(url, scope){
   $.ajax({
@@ -84,12 +89,14 @@ function getSectionThreeData(url, scope){
 
        // CLIENT STATE === responses
        scope.setState({
+         gotData: true,
          sectionThreeData: res,
          responses: combinedResponses
        })
      }
    })
 };
+
 
 function convertToScore(url, scope, data){
 
@@ -107,6 +114,75 @@ function convertToScore(url, scope, data){
         }
        });
  };
+
+
+
+ var AnswerSelector = React.createClass({
+
+
+   handleHoverOver: function(e){
+     TweenMax.to($(e.target).closest('.optionBox'), .5, {backgroundColor: 'rgba(255,255,255,.6)', color: '#000'});
+   },
+
+   handleHoverOut: function(e){
+     TweenMax.to($(e.target).closest('.optionBox'), .5, {backgroundColor: 'rgba(32,32,32,.45)', color: '#A1EB87'});
+   },
+
+   checkEnd: function(answer){
+
+     // Just tell us if it's the last question in this section
+     if (this.props.questionIndex < this.props.totalQuestions) {
+       this.props.handleNext(answer, this.props.questionIndex)
+     } else {
+       console.log('submitting last question')
+       this.props.handleNext(answer, this.props.questionIndex)
+     }
+   },
+
+   render: function(){
+
+     // Reset the response indicator
+     $('#choiceA').removeClass('selectedAnswer')
+     $('#choiceB').removeClass('selectedAnswer')
+
+     // Scrub out the WordPress HTML tags && make uppercase
+     function formatQuestion(input){
+       return input.replace(/(<([^>]+)>)/ig,"").toUpperCase()
+     }
+
+     // Highlight the user's selection
+     if (this.props.answer != null) {
+       if (this.props.answer) {
+         $('#choiceA').addClass('selectedAnswer')
+       } else {
+         $('#choiceB').addClass('selectedAnswer')
+       }
+     }
+
+     // Temporary indicator for debugging
+     var answer = this.props.answer ? <p>"A"</p> : <p>"B"</p>
+     var responseIndicator = this.props.hasBeenAnswered ? <h4>YOU ANSWERED <strong style={{display: 'inline-block'}}>{answer}</strong></h4> : <p>not answered</p>
+
+     return(
+       <div>
+         <div className="selectorHolder">
+           <h3 className='passionTitle'>Which would you prefer or find most rewarding?</h3>
+           <p className='backBtn' onClick={this.props.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
+           <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(true)}>
+             <p className='temp2'>{formatQuestion(this.props.choiceA)}</p>
+           </div>
+           <div id='choiceB' className='optionBox right' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(false)}>
+             <p className='temp2'>{formatQuestion(this.props.choiceB)}</p>
+           </div>
+           <div id='divider' className='temp'><p>or</p></div>
+           {responseIndicator}
+         </div>
+       </div>
+     )
+   }
+ });
+
+
 
 var ExtraDegreesChecklist = React.createClass({
   getInitialState: function(){
@@ -242,7 +318,7 @@ var Survey = React.createClass({
     var scope = this;
     var url = "https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/backgroundq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC";
 
-    getSectionOneData(url, scope);
+    getData(url, scope);
   },
 
   handleNext: function(answer){
@@ -255,20 +331,23 @@ var Survey = React.createClass({
     console.log('new answer to question'+this.state.question, this.state.responses.section1["question" + this.state.question].answer)
     console.log('new client state', this.state.responses)
 
+
+    var totalQuestions = this.state.sectionOneData.concat(this.state.sectionTwoData, this.state.sectionThreeData).length - 1
+
     // // NOT on the last question...
-    if (this.state.question < (this.state.sectionOneData.length - 1) ){
+    if (this.state.question < (totalQuestions) ){
       console.log('you did not answer the last question yet')
-      // First, tell us if user has already answered the question
-      var index = this.state.question + 1
-      if (this.state.responses.section1["question" + index].answer != null){
-          this.setState({
-            hasBeenAnswered: true
-          })
-        } else {
-          this.setState({
-            hasBeenAnswered: false
-          })
-        }
+      // // First, tell us if user has already answered the question
+      // var index = this.state.question + 1
+      // if (this.state.responses.section1["question" + index].answer != null){
+      //     this.setState({
+      //       hasBeenAnswered: true
+      //     })
+      //   } else {
+      //     this.setState({
+      //       hasBeenAnswered: false
+      //     })
+      //   }
 
         // Then, increment the question index
         this.setState({
@@ -300,6 +379,60 @@ var Survey = React.createClass({
 
       var scope = this;
       var url = "/api/background";
+
+      convertToScore(url, scope, responseData);
+    },
+
+
+  handleSectionTwoNext: function(answer, index){
+
+    // Log the user's response
+    this.state.responses.section2["question" + index].answer = answer;
+
+    // NOT on the last question...
+    // if (this.state.question < (this.state.data.length - 1) ){
+    //
+    //   // First, tell us if user has already answered the question
+    //   var index = this.state.question + 1
+    //   if (this.state.responses.section2["question" + index].answer != null){
+    //       this.setState({
+    //         hasBeenAnswered: true
+    //       })
+    //     } else {
+    //       this.setState({
+    //         hasBeenAnswered: false
+    //       })
+    //     }
+
+        // Then, increment the question index
+        this.setState({
+          question: this.state.question + 1
+        })
+      //
+      //   // ON the last question....
+      // } else {
+      //   var index = this.state.question
+      //   if (this.state.responses.section2["question" + index].answer != null){
+      //       this.setState({
+      //         hasBeenAnswered: true
+      //       })
+      //     } else {
+      //       this.setState({
+      //         hasBeenAnswered: false
+      //       })
+      //     }
+      // };
+
+      // Format response data for sending into server
+      var responseData = {}
+      for (var i = 1; i < 9; i++){
+          responseData['question' + i] = this.state.responses.section2['question' + i].answer
+      }
+
+      console.log('sending to server: ', responseData)
+
+      var scope = this;
+      var url = "/api/survey";
 
       convertToScore(url, scope, responseData);
     },
@@ -372,6 +505,11 @@ var Survey = React.createClass({
           case 3:
             return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.sectionOneData}/>;
             break;
+
+
+          case 4:
+            var sectionTwoIndex = questionIndex - this.state.sectionOneData.length + 1;
+            return <AnswerSelector choiceA={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_a} choiceB={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_b} questionIndex={sectionTwoIndex} totalQuestions={this.state.sectionTwoData.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses.section2["question" + sectionTwoIndex].answer} score={this.state.score} handleNext={this.handleSectionTwoNext} handleBack={this.handleBack}/>
 
         }
       } else {

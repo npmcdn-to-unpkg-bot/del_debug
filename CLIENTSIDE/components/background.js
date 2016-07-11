@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require( 'classnames' );
-var Select = require('react-select');
+var Selector = require('./selectorField.js');
 var Checkbox = require('rc-checkbox');
 
 
@@ -121,103 +121,6 @@ var ExtraDegreesChecklist = React.createClass({
   }
 
 });
-
-var EducationSelector = React.createClass({
-
-  getInitialState: function(){
-    return({
-      fieldValue: ''
-    })
-  },
-
-  render: function(){
-
-    var that = this;
-    function logChange(answer) {
-        that.setState({
-          fieldValue: answer.value
-        });
-        that.props.handleNext(answer.value)
-    };
-
-    var options = [];
-
-    if (this.props.gotData){
-      this.props.data[2].acf.background_categories.forEach(
-        function(element, index, array){
-          options.push({value: element.category_name, label: element.category_name})
-        }
-      )
-    }
-
-    return(
-      <div>
-      <h3>Q2 - Education Selector ... adds modules</h3>
-      <Select
-        name="education-selector"
-        value={this.state.fieldValue}
-        options={options}
-        onChange={logChange}
-      />
-      </div>
-    )
-  }
-
-});
-
-var DegreeSelector = React.createClass({
-
-  getInitialState: function(){
-    return({
-      fieldValue: ''
-    })
-  },
-
-  render: function(){
-
-    function toTitleCase(str){
-          return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-      }
-
-    var that = this;
-    function logChange(answer) {
-        that.setState({
-          fieldValue: answer.value
-        });
-        that.props.handleNext(answer.value)
-    };
-
-    var options = [];
-
-    if (this.props.gotData){
-      this.props.data[1].acf.background_categories.forEach(
-        function(element, index, array){
-          options.push({value: toTitleCase(element.category_name), label: toTitleCase(element.category_name)})
-        }
-      )
-    }
-
-    // SORT THESE ALPHABETICALLY
-    options.sort(function(a, b) {
-      var textA = a.value.toUpperCase();
-      var textB = b.value.toUpperCase();
-      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
-
-
-    return(
-      <div>
-        <h3>Q1 - Degree Selector ... adds points</h3>
-        <Select
-          name="form-field-name"
-          value={this.state.fieldValue}
-          options={options}
-          onChange={logChange}
-        />
-      </div>
-    )
-  }
-  });
 
 var ScoreDisplay = React.createClass({
 
@@ -377,24 +280,51 @@ var Survey = React.createClass({
     }
 
     var questionIndex = this.state.question;
-
-    var DegreeSelectorCond = this.state.gotData ? <DegreeSelector questionIndex={questionIndex} totalQuestions={this.state.data.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} score={this.state.score} handleNext={this.handleNext} handleBack={this.handleBack} gotData={this.state.gotData} data={this.state.data}/> : <div>nodata</div>;
-    var EducationSelectorCond = this.state.gotData ? <EducationSelector handleNext={this.handleNext} gotData={this.state.gotData} data={this.state.data}/> : <div>nodata</div>;
+    var that = this;
 
     var questionToShow = () => {
-      switch (questionIndex) {
-        case 1:
-          return DegreeSelectorCond;
-          break;
 
-        case 2:
-          return EducationSelectorCond;
-          break;
+      if(that.state.gotData){
+        switch (questionIndex) {
+          case 1:
+            return (
+              <div>
+                <h3>Q1 - Degree Selector ... adds points</h3>
+                <Selector questionIndex={questionIndex}
+                  handleNext={this.handleNext}
+                  gotData={this.state.gotData}
+                  data={this.state.data}
+                  titleCase={true}
+                  sortAlphabetically={true}
+                />
+              </div>
+            );
+            break;
 
-        case 3:
-          return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.data}/>;
-          break;
+          case 2:
+            return (
+              <div>
+                <h3>Q2 - Education Selector ... adds modules</h3>
+                <Selector questionIndex={questionIndex}
+                  handleNext={this.handleNext}
+                  gotData={this.state.gotData}
+                  data={this.state.data}
+                  titleCase={false}
+                  sortAlphabetically={false}
+                />
+              </div>
+            );
+            break;
 
+          case 3:
+            return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.data}/>;
+            break;
+
+        }
+      } else {
+        return (
+          <div>nodata</div>
+        );
       }
     }
 

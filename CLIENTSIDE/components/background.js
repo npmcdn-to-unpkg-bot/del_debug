@@ -90,6 +90,7 @@ function getSectionThreeData(url, scope){
        // CLIENT STATE === responses
        scope.setState({
          gotData: true,
+         totalQuestions: scope.state.sectionOneData.concat(scope.state.sectionTwoData, res).length - 3,
          sectionThreeData: res,
          responses: combinedResponses
        })
@@ -128,17 +129,6 @@ function convertToScore(url, scope, data){
      TweenMax.to($(e.target).closest('.optionBox'), .5, {backgroundColor: 'rgba(32,32,32,.45)', color: '#A1EB87'});
    },
 
-   checkEnd: function(answer){
-
-     // Just tell us if it's the last question in this section
-     if (this.props.questionIndex < this.props.totalQuestions) {
-       this.props.handleNext(answer, this.props.questionIndex)
-     } else {
-       console.log('submitting last question')
-       this.props.handleNext(answer, this.props.questionIndex)
-     }
-   },
-
    render: function(){
 
      // Reset the response indicator
@@ -168,10 +158,10 @@ function convertToScore(url, scope, data){
          <div className="selectorHolder">
            <h3 className='passionTitle'>Which would you prefer or find most rewarding?</h3>
            <p className='backBtn' onClick={this.props.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
-           <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(true)}>
+           <div id='choiceA' className='optionBox'  onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.props.handleNext(true, this.props.questionIndex)}>
              <p className='temp2'>{formatQuestion(this.props.choiceA)}</p>
            </div>
-           <div id='choiceB' className='optionBox right' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.checkEnd(false)}>
+           <div id='choiceB' className='optionBox right' onMouseOver={this.handleHoverOver} onMouseOut={this.handleHoverOut} onClick={() => this.props.handleNext(false, this.props.questionIndex)}>
              <p className='temp2'>{formatQuestion(this.props.choiceB)}</p>
            </div>
            <div id='divider' className='temp'><p>or</p></div>
@@ -304,6 +294,7 @@ var Survey = React.createClass({
   getInitialState: function(){
       return({
         question: 1,
+        totalQuestions: null,
         hasBeenAnswered: false,
         score: {},
         gotData: false,
@@ -332,7 +323,7 @@ var Survey = React.createClass({
     console.log('new client state', this.state.responses)
 
 
-    var totalQuestions = this.state.sectionOneData.concat(this.state.sectionTwoData, this.state.sectionThreeData).length - 1
+    var totalQuestionsTemp = this.state.sectionOneData.concat(this.state.sectionTwoData, this.state.sectionThreeData).length - 1
 
     // // NOT on the last question...
     if (this.state.question < (totalQuestions) ){
@@ -471,8 +462,8 @@ var Survey = React.createClass({
     var questionToShow = () => {
 
       if(that.state.gotData){
-        switch (questionIndex) {
-          case 1:
+        switch (true) {
+          case (questionIndex === 1):
             return (
               <div>
                 <h3>Q1 - Degree Selector ... adds points</h3>
@@ -487,7 +478,7 @@ var Survey = React.createClass({
             );
             break;
 
-          case 2:
+          case (questionIndex === 2):
             return (
               <div>
                 <h3>Q2 - Education Selector ... adds modules</h3>
@@ -502,12 +493,12 @@ var Survey = React.createClass({
             );
             break;
 
-          case 3:
+          case (questionIndex === 3):
             return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.sectionOneData}/>;
             break;
 
 
-          case 4:
+          case (questionIndex > 3 && questionIndex < (questionIndex + that.state.sectionTwoData.length)):
             var sectionTwoIndex = questionIndex - this.state.sectionOneData.length + 1;
             return <AnswerSelector choiceA={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_a} choiceB={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_b} questionIndex={sectionTwoIndex} totalQuestions={this.state.sectionTwoData.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses.section2["question" + sectionTwoIndex].answer} score={this.state.score} handleNext={this.handleSectionTwoNext} handleBack={this.handleBack}/>
 
@@ -518,6 +509,8 @@ var Survey = React.createClass({
         );
       }
     }
+
+    console.log(this.state.totalQuestions)
 
     return(
       <div>

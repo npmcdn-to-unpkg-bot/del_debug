@@ -1,51 +1,54 @@
 
-module.exports = function passionReducer(surveyResponses){
+module.exports = function passionReducer(passionResponses, score){
 
-    var score = {
-      audit: 0,
-      consulting: 0,
-      advisory: 0,
-      tax: 0,
-      federal: 0,
-      public: 0,
-      tech: 0,
-      nontech: 0
-    }
+      console.log('firing passionReducer.... PASSION RESPONSES:')
+      console.log(passionResponses);
 
-      if (Boolean(surveyResponses.question1)){
-          if (surveyResponses.question1 === 'true'){
+      if (passionResponses.question1.answer != null){
+
+          if (passionResponses.question1.answer === true){
+            console.log('question1 TRUE')
             score.advisory ++;
             score.audit ++;
             score.tech ++;
           } else {
+            console.log('question1 FALSE')
             score.consulting ++;
             score.tax ++;
           };
         }
 
-      if (Boolean(surveyResponses.question2)){
-          if (surveyResponses.question2 === 'true'){
+      if (passionResponses.question2.answer != null){
+
+          if (passionResponses.question2.answer === true){
+            console.log('question2 TRUE')
             score.advisory ++;
             score.audit ++;
             score.tech ++;
           } else {
+            console.log('question2 FALSE')
             score.consulting ++;
             score.tax ++;
           }
         }
 
-      if (Boolean(surveyResponses.question3)){
-          if (surveyResponses.question3 === 'true'){
+      if (passionResponses.question3.answer != null){
+
+          if (passionResponses.question3.answer === true){
+            console.log('question3 TRUE')
             score.advisory ++;
             score.audit ++;
             score.tax ++;
           } else {
+            console.log('question3 FALSE')
             score.consulting ++;
           }
         }
 
-      if (Boolean(surveyResponses.question4)){
-          if (surveyResponses.question4 === 'true'){
+      if (passionResponses.question4.answer != null){
+
+          if (passionResponses.question4.answer === true){
+            console.log('question TRUE')
             score.tech ++;
           } else {
             score.nontech ++;
@@ -53,8 +56,10 @@ module.exports = function passionReducer(surveyResponses){
         }
 
 
-      if (Boolean(surveyResponses.question5)){
-          if (surveyResponses.question5 === 'true'){
+      if (passionResponses.question5.answer != null){
+
+          if (passionResponses.question5.answer === true){
+            console.log('question TRUE')
             score.tax ++;
             score.audit ++;
             score.federal ++;
@@ -64,8 +69,10 @@ module.exports = function passionReducer(surveyResponses){
           }
         }
 
-      if (Boolean(surveyResponses.question6)){
-          if (surveyResponses.question6 === 'true'){
+      if (passionResponses.question6.answer != null){
+
+          if (passionResponses.question6.answer === true){
+            console.log('question TRUE')
             score.tax ++;
             score.audit ++;
             score.federal ++;
@@ -75,8 +82,10 @@ module.exports = function passionReducer(surveyResponses){
           }
         }
 
-      if (Boolean(surveyResponses.question7)){
-          if (surveyResponses.question7 === 'true'){
+      if (passionResponses.question7.answer != null){
+
+          if (passionResponses.question7.answer === true){
+            console.log('question TRUE')
             score.tax ++;
             score.consulting ++;
           } else {
@@ -85,8 +94,10 @@ module.exports = function passionReducer(surveyResponses){
           }
         }
 
-      if (Boolean(surveyResponses.question8)){
-          if (surveyResponses.question8 === 'true'){
+      if (passionResponses.question8.answer != null){
+
+          if (passionResponses.question8.answer === true){
+            console.log('question TRUE')
             score.advisory ++;
             score.audit ++;
             score.federal ++;
@@ -95,6 +106,4 @@ module.exports = function passionReducer(surveyResponses){
             score.tax ++;
           }
         }
-
-    return score;
 }

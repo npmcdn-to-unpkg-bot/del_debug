@@ -4,8 +4,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
-var passionReducer = require('../reducers/passionReducer.js');
-var backgroundReducer = require('../reducers/backgroundReducer.js');
+var masterReducer = require('../reducers/masterReducer.js');
 
 
 router.use(function(req, res, next){
@@ -26,17 +25,12 @@ router.use(function(req, res, next){
 
       .post(function(req, res){
           var data = req.body
-          res.json(passionReducer(data));
+          res.json(masterReducer(data));
       })
 
     router.route('/background')
       .get(function(req, res){
         res.render('background')
-      })
-
-      .post(jsonParser, function(req, res, err){
-          var data = req.body;
-          res.json(backgroundReducer(data));
       })
 
 

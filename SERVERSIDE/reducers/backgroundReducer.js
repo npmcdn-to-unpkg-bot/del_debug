@@ -1,29 +1,12 @@
 
-module.exports = function backgroundReducer(backgroundResponses){
+module.exports = function backgroundReducer(backgroundResponses, score){
 
-  console.log('firing backgroundReducer')
-
+  console.log('firing backgroundReducer.... BACKGROUND RESPONSES:')
   console.log(backgroundResponses)
 
-    var score = {
-      audit: 0,
-      consulting: 0,
-      advisory: 0,
-      tax: 0,
-      financial: 0,
-      federal: 0,
-      public: 0,
-      tech: 0,
-      nontech: 0,
-      modules: [],
-      message1: '',
-      message2: '',
-      message3: ''
-    }
+      if (Boolean(backgroundResponses.question1.answer)){
 
-      if (Boolean(backgroundResponses.question1)){
-
-        switch (backgroundResponses.question1) {
+        switch (backgroundResponses.question1.answer) {
 
           // ******************************************
           // HANDLE SELECTIONS WITH 'PROMPTED OPTIONS'
@@ -102,8 +85,7 @@ module.exports = function backgroundReducer(backgroundResponses){
           // HANDLE ALL OTHER SELECTIONS W/SAME OUTCOMES (ASSUMING EVENLY WEIGHTED POINT DISTRIBUTION)
 
           function logAnswer1(){
-            message = 'Chose ' + backgroundResponses.question1
-            console.log(message)
+            message = 'Chose ' + backgroundResponses.question1.answer
             score.message1 = message;
           }
 
@@ -154,17 +136,16 @@ module.exports = function backgroundReducer(backgroundResponses){
             }
           }
 
-      if (Boolean(backgroundResponses.question2)){
+      if (Boolean(backgroundResponses.question2.answer)){
 
         var message;
 
         function logAnswer2(){
-          message = 'Chose ' + backgroundResponses.question2
-          console.log(message)
+          message = 'Chose ' + backgroundResponses.question2.answer
           score.message2 = message;
         }
 
-        switch (backgroundResponses.question2) {
+        switch (backgroundResponses.question2.answer) {
 
           case 'I\'m a freshman':
           case 'I\'m a sophomore':
@@ -191,90 +172,88 @@ module.exports = function backgroundReducer(backgroundResponses){
             }
           }
 
-      if (Boolean(backgroundResponses.question3)){
+      if (Boolean(backgroundResponses.question3.answer)){
 
         var message;
 
         function logAnswer3(){
-          message = 'Chose ' + backgroundResponses.question3.join(' and ')
-          console.log(message)
+          message = 'Chose ' + backgroundResponses.question3.answer.join(' and ')
           score.message3 = message;
         }
 
-          if (backgroundResponses.question3.indexOf('Certified Public Accountant') != -1){
+          if (backgroundResponses.question3.answer.indexOf('Certified Public Accountant') != -1){
             logAnswer3();
             score.audit ++;
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.indexOf('Juris Doctor or Master of Laws') != -1){
+          if (backgroundResponses.question3.answer.indexOf('Juris Doctor or Master of Laws') != -1){
             logAnswer3();
             score.tax ++;
           }
 
-          if (backgroundResponses.question3.indexOf( 'Master of Accounting') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Master of Accounting') != -1){
             logAnswer3();
             score.tax ++;
             score.audit ++;
             score.advisory ++;
           }
 
-          if (backgroundResponses.question3.indexOf( 'Master of Taxation') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Master of Taxation') != -1){
             logAnswer3();
             score.tax ++;
             score.audit ++;
           }
 
-          if (backgroundResponses.question3.indexOf( 'Master of Business Administration') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Master of Business Administration') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedBusinessDegree');
           }
 
-          if (backgroundResponses.question3.indexOf( 'Master of Health Administration') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Master of Health Administration') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
             score.modules.push('advancedHealthDegree');
           }
 
-          if (backgroundResponses.question3.indexOf( 'Master of Public Administration or Policy') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Master of Public Administration or Policy') != -1){
             logAnswer3();
             score.federal ++;
             score.modules.push('advancedPolicyDegree');
           }
 
-          if (backgroundResponses.question3.indexOf( 'Technology field concentration, second degree or master\’s') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Technology field concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.tech ++;
             score.modules.push('advancedTechDegree');
           }
 
-          if (backgroundResponses.question3.indexOf( 'Financial field concentration, second degree or master\’s') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Financial field concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.nontech ++;
             score.modules.push('advancedFinanceDegree');
           }
 
 
-          if (backgroundResponses.question3.indexOf( 'Science or engineering field concentration, second degree or master\’s') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Science or engineering field concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
           }
 
 
-          if (backgroundResponses.question3.indexOf( 'Other concentration, second degree or master\’s') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'Other concentration, second degree or master\’s') != -1){
             logAnswer3();
             score.consulting ++;
             score.advisory ++;
           }
 
-          if (backgroundResponses.question3.indexOf( 'No / Don\'t plan to at this time') != -1){
+          if (backgroundResponses.question3.answer.indexOf( 'No / Don\'t plan to at this time') != -1){
             logAnswer3();
           }
         }
 
-    return score;
 }

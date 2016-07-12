@@ -360,18 +360,10 @@ var Survey = React.createClass({
           }
       };
 
-      // Format response data for sending into server
-      var responseData = {}
-      for (var i = 1; i < 4; i++){
-          responseData['question' + i] = this.state.responses.section1['question' + i].answer
-      }
-
-      console.log('sending this to BACKGROUND reducer: ' , responseData);
-
       var scope = this;
-      var url = "/api/background";
+      var url = "/api/survey";
 
-      convertToScore(url, scope, responseData);
+      convertToScore(url, scope, this.state.responses);
     },
 
 
@@ -414,18 +406,10 @@ var Survey = React.createClass({
       //     }
       // };
 
-      // Format response data for sending into server
-      var responseData = {}
-      for (var i = 1; i < 9; i++){
-          responseData['question' + i] = this.state.responses.section2['question' + i].answer
-      }
-
-      console.log('sending to PASSION reducer: ', responseData)
-
       var scope = this;
       var url = "/api/survey";
 
-      convertToScore(url, scope, responseData);
+      convertToScore(url, scope, this.state.responses);
     },
 
   handleBack: function(){

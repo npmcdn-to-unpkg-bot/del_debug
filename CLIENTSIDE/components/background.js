@@ -451,11 +451,6 @@ var Survey = React.createClass({
 
   render: function(){
 
-    function onChange(e) {
-      console.log( e.target )
-      console.log('checkbox checked:', (e.target.checked));
-    }
-
     var questionIndex = this.state.question;
     var that = this;
 
@@ -499,13 +494,11 @@ var Survey = React.createClass({
 
 
           case (questionIndex > 3 && questionIndex < (that.state.sectionOneData.length + that.state.sectionTwoData.length - 1 )):
-            console.log(questionIndex)
             var sectionTwoIndex = questionIndex - this.state.sectionOneData.length + 1;
             return <AnswerSelector choiceA={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_a} choiceB={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_b} questionIndex={sectionTwoIndex} totalQuestions={this.state.sectionTwoData.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses.section2["question" + sectionTwoIndex].answer} score={this.state.score} handleNext={this.handleSectionTwoNext} handleBack={this.handleBack}/>
             break;
 
           case (questionIndex >= (that.state.sectionOneData.length + that.state.sectionTwoData.length - 1)):
-            console.log('finished');
             return <div><h3>YOU ARE DONE WITH SECTIONS 1 AND 2</h3></div>
             break;
 

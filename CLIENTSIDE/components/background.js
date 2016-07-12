@@ -244,6 +244,18 @@ var ExtraDegreesChecklist = React.createClass({
 
 var ScoreDisplay = React.createClass({
 
+  getInitialState: function() {
+    return {
+      showing: true
+    };
+  },
+
+  toggleShowing: function(){
+    this.setState({
+      showing: !this.state.showing
+    })
+  },
+
   render: function(){
 
     var indicator = this.props.score.message1 ? this.props.score.message1 : <p>no response yet</p>
@@ -258,30 +270,34 @@ var ScoreDisplay = React.createClass({
       modules = <p>no modules </p>
     }
 
+    // REMEMBER TO USE THE ex. 'message1' FIELDS SOMEWHERE
+
+    var classes = classNames({ row: true, invisible: !this.state.showing});
+
     return(
-      <div className='row'>
-        <div className="col-md-12 text-center"><h4>{indicator} <i>(Q1 response)</i></h4></div>
-        <div className="col-md-12 text-center"><h4>{indicator2} <i>(Q2 response)</i></h4></div>
-        <div className="col-md-12 text-center"><h4>{indicator3} <i>(Q3 response)</i></h4></div>
-        <div className='col-md-4'>
-          <h2>CORE AREAS</h2>
-          <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>
-          <div><h4 style={{display: 'inline-block'}}>ADVISORY</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.advisory}</p></div>
-          <div><h4 style={{display: 'inline-block'}}>CONSULTING</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.consulting}</p></div>
-          <div><h4 style={{display: 'inline-block'}}>TAX</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tax}</p></div>
-        </div>
-        <div className='col-md-4'>
-          <h2>FOCUS AREAS</h2>
-          <div><h4 style={{display: 'inline-block'}}>TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tech}</p></div>
-          <div><h4 style={{display: 'inline-block'}}>NON-TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.nontech}</p></div>
-          <div><h4 style={{display: 'inline-block'}}>FEDERAL</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.federal}</p></div>
-          <div><h4 style={{display: 'inline-block'}}>PUBLIC</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.public}</p></div>
-        </div>
-        <div className='col-md-4'>
-          <h2>MODULES</h2>
-          <ul>
-            {modules}
-          </ul>
+      <div style={{paddingTop: '50px'}}>
+        <button onClick={this.toggleShowing}>Show Current Score</button>
+        <div className={classes}>
+          <div className='col-md-4'>
+            <h2>CORE AREAS</h2>
+            <div><h4 style={{display: 'inline-block'}}>AUDIT</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.audit}</p></div>
+            <div><h4 style={{display: 'inline-block'}}>ADVISORY</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.advisory}</p></div>
+            <div><h4 style={{display: 'inline-block'}}>CONSULTING</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.consulting}</p></div>
+            <div><h4 style={{display: 'inline-block'}}>TAX</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tax}</p></div>
+          </div>
+          <div className='col-md-4'>
+            <h2>FOCUS AREAS</h2>
+            <div><h4 style={{display: 'inline-block'}}>TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.tech}</p></div>
+            <div><h4 style={{display: 'inline-block'}}>NON-TECH</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.nontech}</p></div>
+            <div><h4 style={{display: 'inline-block'}}>FEDERAL</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.federal}</p></div>
+            <div><h4 style={{display: 'inline-block'}}>PUBLIC</h4><p style={{display: 'inline-block'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.score.public}</p></div>
+          </div>
+          <div className='col-md-4'>
+            <h2>MODULES</h2>
+            <ul>
+              {modules}
+            </ul>
+          </div>
         </div>
       </div>
     )
@@ -482,9 +498,16 @@ var Survey = React.createClass({
             break;
 
 
-          case (questionIndex > 3 && questionIndex < (questionIndex + that.state.sectionTwoData.length)):
+          case (questionIndex > 3 && questionIndex < (that.state.sectionOneData.length + that.state.sectionTwoData.length - 1 )):
+            console.log(questionIndex)
             var sectionTwoIndex = questionIndex - this.state.sectionOneData.length + 1;
             return <AnswerSelector choiceA={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_a} choiceB={this.state.sectionTwoData[sectionTwoIndex].acf.passion_choice_b} questionIndex={sectionTwoIndex} totalQuestions={this.state.sectionTwoData.length - 1} hasBeenAnswered={this.state.hasBeenAnswered} answer={this.state.responses.section2["question" + sectionTwoIndex].answer} score={this.state.score} handleNext={this.handleSectionTwoNext} handleBack={this.handleBack}/>
+            break;
+
+          case (questionIndex >= (that.state.sectionOneData.length + that.state.sectionTwoData.length - 1)):
+            console.log('finished');
+            return <div><h3>YOU ARE DONE WITH SECTIONS 1 AND 2</h3></div>
+            break;
 
         }
       } else {

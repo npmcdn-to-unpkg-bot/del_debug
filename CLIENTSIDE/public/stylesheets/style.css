@@ -1,6 +1,8 @@
 body {
   padding: 50px;
-  font: 14px 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+	font-size: 17px;
+	font-weight: 300;
 }
 body#destination {
 	background: #000;
@@ -157,6 +159,7 @@ header > .panel-container {
     display: inline-block;
     margin: 0 10px;
     padding: 5px 10px;
+		font-size: 15px;
 }
 #navlegend span {
     font-size: 22px;
@@ -269,12 +272,122 @@ header > .panel-container {
 	width:100%;
 }
 .people-box .icon img {
-	width:20%;
+    border: 9px solid #ddefe6;
+    border-radius: 77px;
+		width:90%;
 }
+#people .icon {
+    position: absolute;
+    right: 15px;
+    top: 200px;
+}
+.quote {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 65px;
+    width: 64%;
+    z-index: 9999;
+}
+.quoteby {
+	font-size: 15px;
+	font-style: italic;
+	font-weight:normal;
+	text-align:right;
+}
+.about {
+    background: #a0dcff;
+    margin: 10px 0;
+    padding: 30px;
+		min-height: 269px;
+}
+.factwrapper {
+	clear:both;
+}
+.fact {
+    float: left;
+    font-size: 13px;
+    width: 25%;
+		font-weight: bold;
+		margin:2px 0;
+}
+.facta {
+    float: right;
+    font-size: 13px;
+    width: 75%;
+		margin: 2px 0;
+}
+.peoplefooter {
+    background: #9dd4cf;
+		margin-top: 20px;
+		padding: 20px 5px 20px 15px;
+		position: relative;
+		color:#fff;
+}
+.peoplefooter .footer-heading > img {
+    border: 9px solid #ddefe8;
+    border-radius: 77px;
+    position: absolute;
+    top: -20px;
+}
+.pf-heading {
+    font-size: 21px;
+		line-height: 20px;
+    font-weight: bold;
+		margin-right:8px;
+}
+.footer-heading {
+    float: left;
+    width: 24%;
+}
+.footer-content {
+	font-size: 13px;
+}
+.biobtn {
+    background: #fff;
+    padding: 2px 15px;
+		margin:0 5px 0 10px;
+}
+.biobtn a {
+	color:#9dd4cf;
+	font-weight:bold;
+}
+.biobtn a:hover {
+	color:#9dd4cf;
+	text-decoration:none;
+}
+
 /**Professional Development**/
 #prodev {
 	background: #f3f3f4;
 	color:#53565a;
+	padding: 30px 0;
+}
+.rightbox {
+    float: right;
+    width: 48%;
+}
+.leftbox {
+    float: left;
+    width: 48%;
+}
+.caption {
+    font-style: italic;
+    margin: 15px 0 10px;
+    width: 65%;
+}
+.caption img {
+    float: left;
+    margin: 0 15px 0 0;
+    text-align: left;
+    width: 18%;
+		vertical-align: middle;
+}
+.prodevintro {
+    font-size: 19px;
+		font-weight: 500;
 }
 
 /** Career Snapshot **/
@@ -282,11 +395,100 @@ header > .panel-container {
 	background: #000;
 	color:#fff;
 }
+.leftwide {
+    float: left;
+    width: 70%;
+}
+.rightthin {
+    float: right;
+    width: 25%;
+}
+#csnapshot ul {
+	padding:0;
+	list-style: none;
+}
+#csnapshot li:first-child strong {
+    color: #c4d600;
+}
+#csnapshot li:nth-child(2n) strong {
+		 color:#86bc25;
+}
+#csnapshot li:nth-child(3n) strong {
+		color:#0097a9;
+	}
+#csnapshot li:nth-child(4n) strong {
+			color:#6fc2b4;
+}
+.leftwide li {
+    border-right: 1px solid #75787b;
+    float: left;
+    margin-right: 2%;
+    padding-right: 2%;
+    width: 28%;
+}
+.leftwide li:last-child {
+    border-right: 0;
+    float: left;
+    margin-right:0;
+    padding-right: 0;
+    width: 28%;
+}
 
 /** Leading Thoughts **/
 #lthoughts {
 	background: #ddefe8;
 	color:#000;
+}
+#lthoughts h2 {
+	color:#005587;
+	width:30%;
+}
+.lead-thoughts-box {
+    margin-top: 15px;
+}
+.ltimage {
+    float: left;
+    width: 8%;
+}
+#lthoughts .icon {
+    width: 75%;
+}
+.ltcontent {
+    float: right;
+    width: 90%;
+		font-style: italic;
+}
+.ltcontent a {
+			color:#00879e;
+}
+#lthoughts h4 {
+    margin: 2px 0 0;
+		color:#00879e;
+		font-weight:bold;
+		font-style: normal;
+}
+/** Opportunites & Resources**/
+#opportunities h2 {
+    width: 21%;
+}
+.right-flag {
+	background: rgba(42,107,23,0.6);
+	padding:15px;
+}
+.right-flag {
+    background: rgba(42, 107, 23, 0.6);
+    padding: 15px;
+}
+.imageflag {
+    float: left;
+    width: 11%;
+}
+.imageflag > img {
+	width:100%;
+}
+.contentflag {
+    float: right;
+    width: 85%;
 }
 
 /** Another Fit **/
@@ -299,6 +501,11 @@ header > .panel-container {
 footer {
 	background: #86bc25;
 	color:#fff;
+	padding-bottom:50px;
+}
+footer h2 {
+    font-size: 56px;
+    text-align: center;
 }
 footer a {
 	color: #fff;
@@ -310,11 +517,40 @@ footer a:hover {
 	color:#fff;
 	font-weight: normal;
 }
-.social i {
+footer .social i {
     background: #fff;
     border-radius: 80px;
     color: #86bc25;
     padding: 8px 10px;
+}
+footer .social {
+    float: left;
+    margin-left: 3%;
+    width: 35%;
+}
+.social > a {
+    margin-left: 15px;
+}
+.footerwrapper {
+    margin-top: 30px;
+}
+.campus {
+    border-right: 1px solid #fff;
+    float: left;
+    line-height: 13px;
+    margin-left: 14%;
+    padding-right: 15px;
+    width: 35%;
+}
+.campus > img {
+    width: 15%;
+}
+.campus-copy {
+    float: right;
+    line-height: 18px;
+    margin-top: 12px;
+    vertical-align: middle;
+    width: 58%;
 }
 
 /**Progress**/

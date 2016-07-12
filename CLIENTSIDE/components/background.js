@@ -112,8 +112,8 @@ function convertToScore(url, scope, data){
         scope.setState({
           score: res
         })
-        }
-       });
+      }
+    });
  };
 
 
@@ -326,7 +326,7 @@ var Survey = React.createClass({
     var totalQuestionsTemp = this.state.sectionOneData.concat(this.state.sectionTwoData, this.state.sectionThreeData).length - 1
 
     // // NOT on the last question...
-    if (this.state.question < (totalQuestions) ){
+    if (this.state.question < (totalQuestionsTemp) ){
       console.log('you did not answer the last question yet')
       // // First, tell us if user has already answered the question
       // var index = this.state.question + 1
@@ -366,7 +366,7 @@ var Survey = React.createClass({
           responseData['question' + i] = this.state.responses.section1['question' + i].answer
       }
 
-      console.log('sending this to reducer: ' , responseData);
+      console.log('sending this to BACKGROUND reducer: ' , responseData);
 
       var scope = this;
       var url = "/api/background";
@@ -420,7 +420,7 @@ var Survey = React.createClass({
           responseData['question' + i] = this.state.responses.section2['question' + i].answer
       }
 
-      console.log('sending to server: ', responseData)
+      console.log('sending to PASSION reducer: ', responseData)
 
       var scope = this;
       var url = "/api/survey";
@@ -510,15 +510,13 @@ var Survey = React.createClass({
       }
     }
 
-    console.log(this.state.totalQuestions)
+    console.log('total number of questions: ', this.state.totalQuestions)
 
     return(
       <div>
         <p className='backBtn' onClick={this.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
         {questionToShow()}
         <ScoreDisplay score={this.state.score}/>
-        <button onClick={() => getSectionTwoData("https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/passionq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC", this)}>Testing</button>
-        <button onClick={() => getSectionThreeData("https://deloitteeyf.staging.wpengine.com/wp-json/wp/v2/projectq?_embed&filter[posts_per_page]=999&filter[orderby]=menu_order&filter[order]=ASC", this)}>Testing</button>
       </div>
     )
   }

@@ -256,6 +256,15 @@ var ScoreDisplay = React.createClass({
     })
   },
 
+  viewAnswers: function(){
+    var that = this;
+    var myjson = JSON.stringify(that.props.data, null, 2);
+       var x = window.open();
+       x.document.open();
+       x.document.write('<html><body><pre>' + myjson + '</pre></body></html>');
+       x.document.close();
+  },
+
   render: function(){
 
     var indicator = this.props.score.message1 ? this.props.score.message1 : <p>no response yet</p>
@@ -277,6 +286,7 @@ var ScoreDisplay = React.createClass({
     return(
       <div style={{paddingTop: '50px'}}>
         <button onClick={this.toggleShowing}>Show Current Score</button>
+        <button onClick={this.viewAnswers}>View Answers</button>
         <div className={classes}>
           <div className='col-md-4'>
             <h2>CORE AREAS</h2>
@@ -516,7 +526,7 @@ var Survey = React.createClass({
       <div>
         <p className='backBtn' onClick={this.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
         {questionToShow()}
-        <ScoreDisplay score={this.state.score}/>
+        <ScoreDisplay score={this.state.score} data={this.state.responses}/>
       </div>
     )
   }

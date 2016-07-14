@@ -20,7 +20,15 @@ router.use(function(req, res, next){
     router.route('/survey')
 
       .get(function(req, res){
-        res.render('survey')
+        var err = {
+          status: 'error code 1337...',
+          stack: 'please use /api/background instead'
+        }
+
+        res.render('error', {
+          message: ('This page has been disabled').toUpperCase(),
+          error: err
+        });
       })
 
       .post(function(req, res){
@@ -32,7 +40,6 @@ router.use(function(req, res, next){
       .get(function(req, res){
         res.render('background')
       })
-
 
 
 module.exports = router;

@@ -9,6 +9,7 @@ var fs = require('fs');
 // SETS UP THE EXPRESS / NODE CONNECTION
 var app = express();
 
+
 // CONNECTS OUR DATABASE
 var db = require('./SERVERSIDE/models/db');
 

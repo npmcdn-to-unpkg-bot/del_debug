@@ -7,8 +7,6 @@ module.exports = {
   entry: {
     main: ['webpack-hot-middleware/client',
     './Index'],
-    survey: ['webpack-hot-middleware/client',
-    './survey'],
     background: ['webpack-hot-middleware/client',
     './background']
   },

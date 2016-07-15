@@ -3,9 +3,22 @@ var ReactDOM = require('react-dom');
 var classNames = require( 'classnames' );
 
 var Selector = require('./selectorField.js');
+var Checklist = require('./checklist.js')
 var Progress = require('./progress-spinner');
 
-var Checkbox = require('rc-checkbox');
+
+
+Array.prototype.remove = function() {
+  var what, a = arguments, L = a.length, ax;
+  while (L && this.length) {
+      what = a[--L];
+      while ((ax = this.indexOf(what)) !== -1) {
+          this.splice(ax, 1);
+      }
+  }
+  return this;
+};
+
 
 function getData(url, scope){
   $.ajax({
@@ -117,8 +130,18 @@ function convertToScore(url, scope, data){
  };
 
 
+// UTILITY *** puts each field from acf: {background_categories: {category_name: 'thing1'}...} into a std. array eg. ['thing1', 'thing2', ...]
+function convertFromACF(input){
+   var x = [];
+   input.forEach(function(item, index){
+     x.push(item.category_name)
+   });
+   return x;
+}
 
- var AnswerSelector = React.createClass({
+
+
+var AnswerSelector = React.createClass({
 
 
    handleHoverOver: function(e){
@@ -171,76 +194,6 @@ function convertToScore(url, scope, data){
      )
    }
  });
-
-
-
-var ExtraDegreesChecklist = React.createClass({
-  getInitialState: function(){
-    return({
-      selectedAnswers: []
-    })
-  },
-
-  render: function(){
-
-    Array.prototype.remove = function() {
-      var what, a = arguments, L = a.length, ax;
-      while (L && this.length) {
-          what = a[--L];
-          while ((ax = this.indexOf(what)) !== -1) {
-              this.splice(ax, 1);
-          }
-      }
-      return this;
-    };
-
-    var that = this;
-    function checkHandler(e){
-      if (e.target.checked) {
-        var tempArray = that.state.selectedAnswers;
-        tempArray.push(e.target.name)
-        that.setState({
-          selectedAnswers: tempArray
-        })
-      } else {
-        var tempArray = that.state.selectedAnswers;
-        tempArray.remove(e.target.name)
-        that.setState({
-          selectedAnswers: tempArray
-        })
-      }
-    };
-
-    var checkBoxes = this.props.data[3].acf.background_categories.map(function(element){
-      return(
-        <li>
-          <label>
-           {element.category_name} &nbsp;
-           <Checkbox
-             name={element.category_name}
-             onChange={checkHandler}
-           />
-         </label>
-       </li>
-      )
-    })
-
-    return (
-      <div>
-        <h3>Q3 - Extras Selector ... adds points AND modules</h3>
-        <div className="col-md-3"></div>
-        <div className="col-md-6">
-          <ul>
-          {checkBoxes}
-          </ul>
-        </div>
-        <div className="col-md-3"></div>
-        <button onClick={() => this.props.handleNext(this.state.selectedAnswers)}>NEXT</button>
-      </div>
-    )
-  }
-
-});
 
 var ScoreDisplay = React.createClass({
 
@@ -340,31 +293,14 @@ var Survey = React.createClass({
 
   handleNext: function(answer){
 
-    console.log('old answer to question'+this.state.question, this.state.responses.section1["question" + this.state.question].answer)
-
     // Log the user's response
     this.state.responses.section1["question" + this.state.question].answer = answer;
-
-    console.log('new answer to question'+this.state.question, this.state.responses.section1["question" + this.state.question].answer)
-    console.log('new client state', this.state.responses)
-
 
     var totalQuestionsTemp = this.state.sectionOneData.concat(this.state.sectionTwoData, this.state.sectionThreeData).length - 1
 
     // // NOT on the last question...
     if (this.state.question < (totalQuestionsTemp) ){
       console.log('you did not answer the last question yet')
-      // // First, tell us if user has already answered the question
-      // var index = this.state.question + 1
-      // if (this.state.responses.section1["question" + index].answer != null){
-      //     this.setState({
-      //       hasBeenAnswered: true
-      //     })
-      //   } else {
-      //     this.setState({
-      //       hasBeenAnswered: false
-      //     })
-      //   }
 
         // Then, increment the question index
         this.setState({
@@ -375,15 +311,6 @@ var Survey = React.createClass({
       } else {
         console.log('you just answered the last question')
         var index = this.state.question
-        if (this.state.responses.section1["question" + index].answer != null){
-            this.setState({
-              hasBeenAnswered: true
-            })
-          } else {
-            this.setState({
-              hasBeenAnswered: false
-            })
-          }
       };
 
       var scope = this;
@@ -398,39 +325,10 @@ var Survey = React.createClass({
     // Log the user's response
     this.state.responses.section2["question" + index].answer = answer;
 
-    // NOT on the last question...
-    // if (this.state.question < (this.state.data.length - 1) ){
-    //
-    //   // First, tell us if user has already answered the question
-    //   var index = this.state.question + 1
-    //   if (this.state.responses.section2["question" + index].answer != null){
-    //       this.setState({
-    //         hasBeenAnswered: true
-    //       })
-    //     } else {
-    //       this.setState({
-    //         hasBeenAnswered: false
-    //       })
-    //     }
-
         // Then, increment the question index
         this.setState({
           question: this.state.question + 1
         })
-      //
-      //   // ON the last question....
-      // } else {
-      //   var index = this.state.question
-      //   if (this.state.responses.section2["question" + index].answer != null){
-      //       this.setState({
-      //         hasBeenAnswered: true
-      //       })
-      //     } else {
-      //       this.setState({
-      //         hasBeenAnswered: false
-      //       })
-      //     }
-      // };
 
       var scope = this;
       var url = "/api/survey";
@@ -445,21 +343,12 @@ var Survey = React.createClass({
       })
 
       var index = this.state.question - 1
-
-      if (this.state.responses["question" + index].answer != null){
-        this.setState({
-          hasBeenAnswered: true
-        })
-      } else {
-        this.setState({
-          hasBeenAnswered: false
-        })
-      }
     }
 
   },
 
   render: function(){
+
 
     var questionIndex = this.state.question;
     var that = this;
@@ -478,6 +367,7 @@ var Survey = React.createClass({
                   data={this.state.sectionOneData}
                   titleCase={true}
                   sortAlphabetically={true}
+                  clientAnswer={this.state.responses.section1.question1.answer}
                 />
               </div>
             );
@@ -493,13 +383,15 @@ var Survey = React.createClass({
                   data={this.state.sectionOneData}
                   titleCase={false}
                   sortAlphabetically={false}
+                  clientAnswer={this.state.responses.section1.question2.answer}
                 />
               </div>
             );
             break;
 
           case (questionIndex === 3):
-            return <ExtraDegreesChecklist handleNext={this.handleNext} data={this.state.sectionOneData}/>;
+            var checklistData = convertFromACF(this.state.sectionOneData[3].acf.background_categories);
+            return <Checklist handleNext={this.handleNext} data={checklistData} clientAnswer={this.state.responses.section1.question3.answer}/>;
             break;
 
 
@@ -519,8 +411,6 @@ var Survey = React.createClass({
         );
       }
     }
-
-    console.log('total number of questions: ', this.state.totalQuestions)
 
     return(
       <div>

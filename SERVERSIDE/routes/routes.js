@@ -27,7 +27,8 @@ router.use(function(req, res, next){
 
         res.render('error', {
           message: ('This page has been disabled').toUpperCase(),
-          error: err
+          error: err,
+          redirect: {url: '/api/background'}
         });
       })
 

@@ -8,6 +8,7 @@ var Select = require('react-select');
 //   sortAlphabetically: BOOLEAN
 //   data
 //   questionIndex
+//   clientAnswer: null OR string
 var Selector = React.createClass({
 
   getInitialState: function(){
@@ -64,7 +65,7 @@ var Selector = React.createClass({
     return(
       <Select
         name="education-selector"
-        value={this.state.fieldValue}
+        value={this.props.clientAnswer}
         options={options}
         onChange={this.logChange}
       />

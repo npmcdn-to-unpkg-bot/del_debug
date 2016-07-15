@@ -391,7 +391,12 @@ var Survey = React.createClass({
 
           case (questionIndex === 3):
             var checklistData = convertFromACF(this.state.sectionOneData[3].acf.background_categories);
-            return <Checklist handleNext={this.handleNext} data={checklistData} clientAnswer={this.state.responses.section1.question3.answer}/>;
+            return (
+              <div>
+                <h3>Q3 - Extras Selector ... adds points AND modules</h3>
+                <Checklist handleNext={this.handleNext} data={checklistData} clientAnswer={this.state.responses.section1.question3.answer}/>;
+              </div>
+            );
             break;
 
 

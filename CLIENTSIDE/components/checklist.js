@@ -6,9 +6,9 @@ var Checkbox = require('rc-checkbox');
 
 
 // ***** PROPS *****
-// handleNext = fn() .... callback for next button, sends currently selected answers in an array
+// handleNext = fn() .... callback for next button, sends currently selected answers in an array as an input
 // data = [array] .... of options for the checklist to render
-// clientAnswer = [array] .... of options to display as pre-selected
+// clientAnswer = [array] .... of options to display as pre-selected, compares items VERBATIM against the 'data' prop
 
 var Checklist = React.createClass({
 
@@ -75,7 +75,6 @@ var Checklist = React.createClass({
 
     return (
       <div>
-        <h3>Q3 - Extras Selector ... adds points AND modules</h3>
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">

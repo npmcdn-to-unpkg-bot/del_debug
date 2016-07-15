@@ -33,6 +33,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.11.3",
+    "gsap": "^1.18.5",
     "method-override": "^2.3.5",
     "mongodb-uri": "^0.9.7",
     "mongoose": "^4.1.11",

@@ -236,7 +236,7 @@ var Survey = React.createClass({
         switch (true) {
           case (questionIndex === 1):
             return (
-              <div>
+              <div style={{marginLeft: '200px'}}>
                 <h3>Q1 - Degree Selector ... adds points</h3>
                 <Selector questionIndex={questionIndex}
                   handleNext={this.handleNext}
@@ -252,7 +252,7 @@ var Survey = React.createClass({
 
           case (questionIndex === 2):
             return (
-              <div>
+              <div style={{marginLeft: '200px'}}>
                 <h3>Q2 - Education Selector ... adds modules</h3>
                 <Selector questionIndex={questionIndex}
                   handleNext={this.handleNext}
@@ -297,7 +297,10 @@ var Survey = React.createClass({
     return(
       <div>
         <p className='backBtn' onClick={this.handleBack}><i className='fa fa-arrow-circle-left'></i> back</p>
-        <Progress questionIndex={questionIndex} totalQuestions={this.state.totalQuestions}/>
+        <div style={{position: 'relative', float: 'right', top: -65, right: 200}}>
+          <p style={{position: 'absolute', bottom: '35px', right: '85px', color: '#A1EB87', textShadow: 'rgba(32,32,32,.5) 1px 1px 5px'}}><i>progress</i></p>
+          <Progress questionIndex={questionIndex} totalQuestions={this.state.totalQuestions}/>
+        </div>
         {questionToShow()}
         <ScoreDisplay score={this.state.score} data={this.state.responses}/>
       </div>

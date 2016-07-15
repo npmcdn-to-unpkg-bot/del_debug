@@ -1,0 +1,70 @@
+.Select {
+  font-weight: 600 !important;
+}
+
+.Select-control {
+  width: 500px !important;
+  border: 3px solid #96CC3E !important;
+  margin-top: -2px !important;
+}
+
+.Select-arrow {
+  border-style: none !important;
+}
+
+.Select-arrow:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 5px;
+    left: 0;
+}
+
+.Select-clear-zone {
+  display: none !important;
+}
+
+.Select-menu-outer {
+  width: 500px !important;
+  background-color: transparent !important;
+  border: none !important;
+  max-height: auto !important;
+}
+
+.Select-menu {
+  max-height: 60vh !important;
+  background-color: none !important;
+}
+
+.Select-option {
+  background-color: rgba(52,52,52,.9) !important;
+  color: #96CC3E !important;
+  border: 1px solid #96CC3E !important;
+  margin: 3px 0 !important;
+  font-weight: 300 !important;
+}
+
+::-webkit-scrollbar
+{
+  width: 3px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: none;
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #96CC3E;
+
+  box-shadow: rgba(32,32,32,.6) 0px 3px 5px
+}

@@ -102,6 +102,11 @@ h1, h2 {
 }
 
 /**Header**/
+#fixedblock {
+    position: fixed;
+    width: 100%;
+		z-index: 999999;
+}
 header {
 	background: #424548;
 	color:#86bc25;
@@ -119,6 +124,9 @@ header > .panel-container {
 	background: transparent;
 	padding:0;
 	color:#86bc25;
+}
+#navlegend {
+    background: #000;
 }
 #navlegend > .panel-container {
 	background: transparent;
@@ -165,7 +173,22 @@ header > .panel-container {
     font-size: 22px;
 }
 
-/**Welcome**/
+/** Landing **/
+#landing {
+    height: 100vh;
+    position: relative;
+    top: 250px;
+}
+.lp-left {
+    float: left;
+    width: 50%;
+}
+.lp-right {
+    float: right;
+    width: 50%;
+}
+
+/** Welcome **/
 #welcome  {
 		background: #f3f3f4;
 		color: #53565a;

@@ -28,6 +28,8 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 
+// NEAT LITTLE JS UTILITIES LIBRARY
+var _ = require('underscore')
 
 
 // Webpack config to enable hot reloading

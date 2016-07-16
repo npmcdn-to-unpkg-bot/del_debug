@@ -34,6 +34,7 @@
     "express": "~4.13.1",
     "express-session": "^1.11.3",
     "gsap": "^1.18.5",
+    "jquery": "^3.1.0",
     "method-override": "^2.3.5",
     "mongodb-uri": "^0.9.7",
     "mongoose": "^4.1.11",
@@ -54,6 +55,7 @@
     "rx": "^4.0.6",
     "serve-favicon": "~2.3.0",
     "superagent": "^1.4.0",
+    "underscore": "^1.8.3",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0",
     "webpack": "^1.13.1"

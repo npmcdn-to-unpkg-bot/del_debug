@@ -1,12 +1,3 @@
 <h1><%= message %></h1>
 <h2><%= error.status %></h2>
 <pre><%= error.stack %></pre>
-
-<script>
- console.log('<%= redirect.url %>')
- if ('<%= redirect.url %>' != null) {
-  setTimeout(function(){
-    window.location = '<%= redirect.url %>'
-  }, 3000)
-}
-</script>
